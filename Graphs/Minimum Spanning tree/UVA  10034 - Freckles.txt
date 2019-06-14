@@ -1,0 +1,128 @@
+// https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=975
+// 10034 - Freckles
+
+#include <bits/stdc++.h>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
+
+#define FASTIO ios::sync_with_stdio(NULL); cin.tie(NULL);
+#define mem( a , b ) memset( a , b , sizeof a )
+#define popcnt(x) __builtin_popcount(x)
+#define all(x) x.begin() , x.end()
+#define SZ(a) (int)a.size()
+#define ll  long long
+#define ld  long double
+#define vii vector  <ll>
+#define dqi deque   <ll>
+#define sii set     <ll>
+#define mii map     <ll,ll>
+#define pii pair    <ll,ll>
+#define vss vector  <string>
+#define pb  push_back
+#define F   first
+#define S   second
+#define L   length()
+#define PI  3.141592654
+#define OO (ll)1e18
+using namespace std;
+void ONLINE__JUDGE();
+
+pii swapii( pii pr ){ return { pr.S , pr.F }; }
+int dx[] = {  0 ,  0 , -1 , +1 , -1 , +1 , -1 , +1 };
+int dy[] = { -1 , +1 ,  0 ,  0 , -1 , +1 , +1 , -1 };
+
+const int mod = 7901;
+const int MAX = 3e5 + 9;
+
+struct DSU
+{
+    vii parent, Rank;
+    DSU( ll N )
+    {
+        Rank.assign( N+9 , 0 ); parent.assign( N+9 , 0 );
+        for ( int i = 0; i <= N; ++i ) parent[i] = i;
+    }
+    ll findSet ( ll i ) { return parent[i] == i ? i : (parent[i] = findSet(parent[i])); }
+    bool isSame( ll i , ll j ) { return findSet(i) == findSet(j); }
+    void unionSet( ll i , ll j )
+    {
+        if ( !isSame( i , j ) )
+        {
+            ll x = findSet(i) , y = findSet(j);
+            if ( Rank[x] > Rank[y] ) parent[y] = x;
+            else
+            {
+                parent[x] = y;
+                if ( Rank[x] == Rank[y] ) Rank[y]++;
+            }
+        }
+    }
+};
+
+struct edge
+{
+    ll from,to; ld cost;
+    edge(){ from = to = cost = 0; }
+    edge( ll _from , ll _to , ld _cost ){ from = _from; to = _to; cost = _cost; }
+    bool operator < ( const edge &t ) const { return cost > t.cost; }
+    friend ostream& operator << ( ostream& out , edge e )
+    {
+        out << e.from << " " << e.to << " " << fixed << setprecision(10) << e.cost; return out;
+    }
+};
+
+ld getDistance( pair < ld , ld > a , pair < ld , ld > b )
+{
+    ld distance = (a.F - b.F)*(a.F - b.F) + (a.S - b.S)*(a.S - b.S);
+    distance = sqrt( distance ); return distance;
+}
+
+pair < ld , vector<edge> > Kruskal( vector < edge >& vec , ll n )
+{
+    ld cost = 0; vector < edge > ret; DSU d(n);
+    for ( int i = SZ(vec)-1; i >= 0; --i )
+    {
+        if ( !d.isSame( vec[i].from , vec[i].to ) )
+        {
+            cost += vec[i].cost; d.unionSet( vec[i].from , vec[i].to );
+            ret.pb( vec[i] );
+        }
+    }
+    return {cost , ret};
+}
+ll q;
+
+int main()
+{
+    cin >> q;
+    while ( q-- )
+    {
+        ll x , idx = 1; cin >> x;
+        map < pair<ld,ld> , ll > mp; vector < pair <ld , ld> > vec;
+
+        vec.resize(x);
+        for ( auto& i : vec ) cin >> i.F >> i.S , mp[{i.F , i.S}] = idx++;
+
+        vector <edge> edges;
+        for ( int i = 0; i < SZ(vec); ++i )
+            for ( int j = i+1; j < SZ(vec); ++j )
+            {
+                edge e( mp[ vec[i] ] , mp[ vec[j] ] , getDistance( vec[i] , vec[j] ) );
+                edges.pb( e );
+            }
+        sort( all(edges) );
+        pair < ld , vector<edge> > res = Kruskal( edges , SZ(edges) );
+        if ( q ) cout << fixed << setprecision(2) << res.F << "\n\n";
+        else cout << fixed << setprecision(2) << res.F << "\n";
+    }
+    return 0;
+}
+
+void ONLINE__JUDGE()
+{
+    #ifndef ONLINE_JUDGE
+    freopen( "inp.c"         , "r" , stdin  );
+    freopen( "OutPut.txt"   , "w" , stdout );
+    #endif // ONLINE_JUDGE
+}
