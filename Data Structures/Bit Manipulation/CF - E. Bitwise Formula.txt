@@ -1,0 +1,139 @@
+// NAME 	: E. Bitwise Formula
+// problem URL 	: http://codeforces.com/contest/779/problem/E
+// Submission 	: http://codeforces.com/contest/779/submission/53721992
+
+#include <bits/stdc++.h>
+
+#define FASTIO ios::sync_with_stdio(NULL); cin.tie(NULL);
+#define mem( a , b ) memset( a , b , sizeof a )
+#define popcnt(x) __builtin_popcount(x)
+#define compination(x) ((x*(x-1))/2)
+#define all(x) x.begin() , x.end()
+#define SZ(a) (int)a.size()
+#define ll  long long
+#define ld  long double
+#define vii vector  <ll>
+#define dqi deque   <ll>
+#define sii set     <ll>
+#define vch vector  <char>
+#define mii map     <ll,ll>
+#define pii pair    <ll,ll>
+#define vss vector  <string>
+#define pb  push_back
+#define F   first
+#define S   second
+#define L   length()
+#define PI  3.141592654
+
+using namespace std;
+void ONLINE__JUDGE();
+
+pii swapii( pii pr ){ return { pr.S , pr.F }; }
+int dx[] = { 0  , 0  , -1 , +1 , -1 , +1 , -1 , +1 };
+int dy[] = { -1 , +1 , 0  , 0  , -1 , +1 , +1 , -1 };
+
+const int mod = 7901;
+const int MAX = 1e3 + 9;
+
+
+ll x , y; vii mn , mx;
+map < string , ll > mp;
+string symb , op; ll keyCnt;
+
+ll setZero[ 5009 ][ 1009 ];
+ll setOne [ 5009 ][ 1009 ];
+
+int main()
+{
+    FASTIO ONLINE__JUDGE();
+
+    cin >> x >> y;
+    for ( int i = 0; i < x; i++ )
+    {
+        cin >> symb >> op >> op;
+        auto it = mp.find( op );
+        if ( op == "?" || it != mp.end() )
+        {
+            string Bit , nxt; cin >> Bit >> nxt;
+            if ( nxt == "?" ) swap( nxt , op );
+            if ( op == "?" && nxt == "?" )
+            {
+                if ( Bit == "XOR" )
+                    for ( int i = y-1; i >= 0; --i )
+                        setZero[ keyCnt ][i] = setOne[ keyCnt ][i] = 0;
+                else
+                    for ( int i = y-1; i >= 0; --i )
+                        setZero[ keyCnt ][i] = 0 , setOne[ keyCnt ][i] = 1;
+            }
+            else if ( op == "?" && nxt != "?" )
+            {
+                ll keyNxt = mp[ nxt ];
+
+                if      ( Bit == "XOR" )
+                    for ( int i = y-1; i >= 0; --i )
+                        setZero[ keyCnt ][i] = 0^setZero[ keyNxt ][i] ,
+                        setOne [ keyCnt ][i] = 1^setOne [ keyNxt ][i] ;
+                else if ( Bit == "AND" )
+                    for ( int i = y-1; i >= 0; --i )
+                        setZero[ keyCnt ][i] = 0&setZero[ keyNxt ][i] ,
+                        setOne [ keyCnt ][i] = 1&setOne [ keyNxt ][i] ;
+                else
+                    for ( int i = y-1; i >= 0; --i )
+                        setZero[ keyCnt ][i] = 0|setZero[ keyNxt ][i] ,
+                        setOne [ keyCnt ][i] = 1|setOne [ keyNxt ][i] ;
+            }
+            else
+            {
+                ll keyNxt = mp[ nxt ] , keyFrst = mp[ op ];
+
+                if      ( Bit == "XOR" )
+                    for ( int i = y-1; i >= 0; --i )
+                        setZero[ keyCnt ][i] = setZero[ keyFrst ][i]^setZero[ keyNxt ][i] ,
+                        setOne [ keyCnt ][i] = setOne [ keyFrst ][i]^setOne [ keyNxt ][i] ;
+                else if ( Bit == "AND" )
+                    for ( int i = y-1; i >= 0; --i )
+                        setZero[ keyCnt ][i] = setZero[ keyFrst ][i]&setZero[ keyNxt ][i] ,
+                        setOne [ keyCnt ][i] = setOne [ keyFrst ][i]&setOne [ keyNxt ][i] ;
+                else
+                    for ( int i = y-1; i >= 0; --i )
+                        setZero[ keyCnt ][i] = setZero[ keyFrst ][i]|setZero[ keyNxt ][i] ,
+                        setOne [ keyCnt ][i] = setOne [ keyFrst ][i]|setOne [ keyNxt ][i] ;
+            }
+        }
+        else
+        {
+            for ( int i = y-1; i >= 0; --i )
+            {
+                setZero[ keyCnt ][i] = op[i]-'0';
+                setOne [ keyCnt ][i] = op[i]-'0';
+            }
+        }
+        mp[ symb ] = keyCnt++;
+    }
+
+    string mn = "" , mx = "";
+    for ( int i = y-1; i >= 0; --i )
+    {
+        ll zeroOne = 0 , oneOne = 0;
+        for ( int j = 0; j < keyCnt; j++ )
+        {
+            setZero[ j ][ i ] == 1 ? zeroOne++ : 0;
+            setOne [ j ][ i ] == 1 ? oneOne ++ : 0;
+        }
+
+        if      ( zeroOne >  oneOne ) mx = "0" + mx , mn = "1" + mn;
+        else if ( zeroOne <  oneOne ) mx = "1" + mx , mn = "0" + mn;
+        else if ( zeroOne == oneOne ) mx = "0" + mx , mn = "0" + mn;
+    }
+    cout << mn << "\n" << mx;
+    return 0;
+}
+
+
+void ONLINE__JUDGE()
+{
+    #ifndef ONLINE_JUDGE
+    freopen( "inp.c"         , "r" , stdin  );
+    //freopen( "OutPut.txt"   , "w" , stdout );
+    #endif // ONLINE_JUDGE
+}

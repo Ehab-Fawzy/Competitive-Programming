@@ -1,0 +1,92 @@
+// http://codeforces.com/contest/1167/problem/C
+// C. News Distribution
+
+
+#include <bits/stdc++.h>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
+
+#define FASTIO ios::sync_with_stdio(NULL); cin.tie(NULL);
+#define mem( a , b ) memset( a , b , sizeof a )
+#define popcnt(x) __builtin_popcount(x)
+#define all(x) x.begin() , x.end()
+#define SZ(a) (int)a.size()
+#define ll  long long
+#define ld  long double
+#define vii vector  <ll>
+#define dqi deque   <ll>
+#define sii set     <ll>
+#define mii map     <ll,ll>
+#define pii pair    <ll,ll>
+#define vss vector  <string>
+#define pb  push_back
+#define F   first
+#define S   second
+#define L   length()
+#define PI  3.141592654
+#define OO (ll)1e18
+using namespace std;
+void ONLINE__JUDGE();
+
+pii swapii( pii pr ){ return { pr.S , pr.F }; }
+int dx[] = {  0 ,  0 , -1 , +1 , -1 , +1 , -1 , +1 };
+int dy[] = { -1 , +1 ,  0 ,  0 , -1 , +1 , +1 , -1 };
+
+const int mod = 7901;
+const int MAX = 1e6 + 9;
+
+struct DSU
+{
+    vii parent, Rank;
+    DSU( ll N )
+    {
+        Rank.assign( N+9 , 0 ); parent.assign( N+9 , 0 );
+        for ( int i = 0; i <= N; ++i ) parent[i] = i;
+    }
+    ll findSet ( ll i ) { return parent[i] == i ? i : (parent[i] = findSet(parent[i])); }
+    bool isSame( ll i , ll j ) { return findSet(i) == findSet(j); }
+    void unionSet( ll i , ll j )
+    {
+        if ( !isSame( i , j ) )
+        {
+            ll x = findSet(i) , y = findSet(j);
+            if ( Rank[x] > Rank[y] ) parent[y] = x;
+            else
+            {
+                parent[x] = y;
+                if ( Rank[x] == Rank[y] ) Rank[y]++;
+            }
+        }
+    }
+};
+
+ll x, y , cnt [MAX];
+
+int main()
+{
+    FASTIO ONLINE__JUDGE();
+
+    cin >> x >> y; DSU d(x);
+    for ( int i = 0; i < y; ++i )
+    {
+        ll in , a; cin >> in; vii vec;
+        while ( in-- ) cin >> a , vec.pb(a);
+        if ( SZ(vec) > 1 )
+        {
+            for ( int i = 1; i < SZ(vec); ++i ) d.unionSet( vec[0] , vec[i] );
+        }
+    }
+
+    for ( int i = 1; i <= x; ++i ) cnt[ d.findSet(i) ]++;
+    for ( int i = 1; i <= x; ++i ) cout << cnt[ d.findSet(i) ] << " ";
+    return 0;
+}
+
+void ONLINE__JUDGE()
+{
+    #ifndef ONLINE_JUDGE
+    freopen( "inp.c"         , "r" , stdin  );
+    //freopen( "OutPut.txt"   , "w" , stdout );
+    #endif // ONLINE_JUDGE
+}
