@@ -1,0 +1,109 @@
+// UVA 11450 - Wedding shopping
+// https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=2445
+
+
+
+#include <bits/stdc++.h>
+
+#define EHAB_FAWZY_FCI_AaRnoB ios::sync_with_stdio(NULL); cin.tie(NULL);
+#define popcnt(x) __builtin_popcount(x)
+#define compination(x) ((x*(x-1))/2)
+#define all(x) x.begin() , x.end()
+#define ll long long
+#define ld long double
+#define vii vector  <ll>
+#define dqi deque   <ll>
+#define sii set     <ll>
+#define vch vector  <char>
+#define mii map     <ll,ll>
+#define pii pair    <ll,ll>
+#define PI 3.141592654
+
+using namespace std;
+void ONLINE__JUDGE();
+
+const int mod = 998244353;
+const int MAX = 1e5 + 9;
+
+ll q , M , C , x,y , price[25][25];
+bool dp[25][210]; bool ok;
+
+void show( ll score , ll g , vii vec = {} )
+{
+    if ( g < 0 )
+    {
+        if ( score == M )
+        {
+            for ( int i : vec )
+                cout << i << " ";
+            cout << "\n";
+        }
+        return;
+    }
+
+    for ( int i = 1; i <= price[g][0]; i++ )
+    {
+        vec.push_back( price[g][i] );
+        show( score+price[g][i] , g-1 , vec );
+        vec.pop_back();
+    }
+}
+
+int main()
+{
+    EHAB_FAWZY_FCI_AaRnoB ONLINE__JUDGE();
+
+    cin >> q;
+    while ( q-- )
+    {
+        cin >> M >> C;
+        for ( int i = 0; i < C; i++ )
+        {
+            cin >> price[i][0];
+            for ( int j = 1; j <= price[i][0]; j++ ) cin >> price[i][j];
+        }
+
+        for ( int j = 1; j <= price[0][0]; j++ )
+        {
+            if ( M-price[0][j] >= 0 )
+                dp[0][M - price[0][j]] = true;
+        }
+
+        for ( int i = 0; i < C-1; i++ )
+        {
+            for ( int j = 0; j < 205; j++ )
+            {
+                if ( dp[i][j] )
+                {
+                    for ( int k = 1; k <= price[i+1][0]; k++ )
+                    {
+                        if ( j-price[i+1][k] >= 0 )
+                        {
+                            dp[i+1][j-price[i+1][k]] = true;
+                        }
+                    }
+                }
+            }
+        }
+
+        ll score = -1;
+        for ( int i = 0; i < 205; i++ )
+            if ( dp[C-1][i] ){ score = i; break; }
+
+        if ( score < 0 ) cout << "no solution\n";
+        else
+            cout << M-score << "\n" , show( score , C-1 );
+        cout << "\n\n";
+        memset( dp , 0 , sizeof dp );
+    }
+    return 0;
+}
+
+
+void ONLINE__JUDGE()
+{
+    #ifndef ONLINE_JUDGE
+    freopen( "inp.c"         , "r" , stdin  );
+    //freopen( "OutPut.txt"   , "w" , stdout );
+    #endif // ONLINE_JUDGE
+}

@@ -1,0 +1,91 @@
+// 10344 - 23 out of 5
+// https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1285
+
+
+#include <bits/stdc++.h>
+
+#define FASTIO ios::sync_with_stdio(NULL); cin.tie(NULL);
+#define mem( a , b ) memset( a , b , sizeof a )
+#define popcnt(x) __builtin_popcount(x)
+#define compination(x) ((x*(x-1))/2)
+#define all(x) x.begin() , x.end()
+#define SZ(a) a.size()
+#define ll long long
+#define ld long double
+#define vii vector  <ll>
+#define dqi deque   <ll>
+#define sii set     <ll>
+#define vch vector  <char>
+#define mii map     <ll,ll>
+#define pii pair    <ll,ll>
+#define vss vector  <string>
+#define PI 3.141592654
+
+int dx[] = { 0  , 0  , -1 , +1 , -1 , +1 , -1 , +1 };
+int dy[] = { -1 , +1 , 0  , 0  , -1 , +1 , +1 , -1 };
+
+using namespace std;
+void ONLINE__JUDGE();
+
+const int mod = 998244353;
+const int MAX = 3e5+9;
+
+bool ok;
+void solve( vii& vec , ll i , ll cnt )
+{
+    if ( i == vec.size() )
+    {
+        if ( cnt == 23 ) ok = 1;
+        return;
+    }
+
+    solve( vec , i+1 , cnt + vec[i] );
+    solve( vec , i+1 , cnt - vec[i] );
+    solve( vec , i+1 , cnt * vec[i] );
+}
+void getPermutation( vii& vec , ll st , ll ed )
+{
+    if ( st == ed )
+    {
+        solve( vec , 1 , vec.front() );
+        return;
+    }
+
+    for ( int i = st; i < ed; i++ )
+    {
+        swap( vec[st] , vec[i] );
+        getPermutation( vec , st+1 , ed );
+        swap( vec[st] , vec[i] );
+    }
+}
+
+int main()
+{
+    FASTIO ONLINE__JUDGE();
+
+    while ( true )
+    {
+        vii vec; ll sum = 0,n = 0; ok = 0;
+        for ( int i = 0; i < 5; i++ )
+            cin >> n , vec.push_back(n) , sum += n;
+
+        if ( sum == 0 ) break;
+        else
+        {
+            getPermutation( vec , 0 , vec.size() );
+            if ( ok ) cout << "Possible\n";
+            else
+                cout << "Impossible\n";
+        }
+    }
+    return 0;
+}
+
+
+void ONLINE__JUDGE()
+{
+    #ifndef ONLINE_JUDGE
+    freopen( "inp.c"         , "r" , stdin  );
+    //freopen( "OutPut.txt"   , "w" , stdout );
+    #endif // ONLINE_JUDGE
+}

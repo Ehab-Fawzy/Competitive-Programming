@@ -1,0 +1,68 @@
+// 10192 - Vacation
+// https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1133
+
+
+#include <bits/stdc++.h>
+
+#define FASTIO ios::sync_with_stdio(NULL); cin.tie(NULL);
+#define popcnt(x) __builtin_popcount(x)
+#define compination(x) ((x*(x-1))/2)
+#define all(x) x.begin() , x.end()
+#define ll long long
+#define ld long double
+#define vii vector  <ll>
+#define dqi deque   <ll>
+#define sii set     <ll>
+#define vch vector  <char>
+#define mii map     <ll,ll>
+#define pii pair    <ll,ll>
+#define PI 3.141592654
+
+using namespace std;
+void ONLINE__JUDGE();
+
+const int mod = 998244353;
+const int MAX = 109;
+
+string x,y; ll q,len,memo[MAX][MAX];
+
+ll solve( ll i1 , ll i2 )
+{
+    if ( i1 == x.length() || i2 == y.length() ) return 0;
+
+    ll &ret = memo[i1][i2];
+    if ( ret != -1 ) return ret;
+
+    if ( x[i1] == y[i2] )
+        return ret = ( solve( i1+1 , i2+1 )+1 );
+
+    ll leave = 0 , take = 0;
+    if ( i1 < x.length()-1 ) leave = solve( i1+1 , i2 );
+    if ( i2 < y.length()-1 ) take  = solve( i1 , i2+1 );
+    return ret = max( take , leave );
+}
+
+int main()
+{
+    FASTIO ONLINE__JUDGE();
+
+    while ( true )
+    {
+        memset( memo , -1 , sizeof memo );
+        getline( cin , x ); getline( cin , y );
+
+        if ( x == "#" || y == "#" ) break;
+        cout << "Case #" << ++q << ": you can visit at most "
+             << solve(0,0)  << " cities.\n";
+    }
+    return 0;
+}
+
+
+void ONLINE__JUDGE()
+{
+    #ifndef ONLINE_JUDGE
+    freopen( "inp.c"         , "r" , stdin  );
+    //freopen( "OutPut.txt"   , "w" , stdout );
+    #endif // ONLINE_JUDGE
+}

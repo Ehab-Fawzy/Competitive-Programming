@@ -1,0 +1,86 @@
+// 10100 - Longest Match
+// https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1041
+
+
+#include <bits/stdc++.h>
+
+#define FASTIO ios::sync_with_stdio(NULL); cin.tie(NULL);
+#define popcnt(x) __builtin_popcount(x)
+#define compination(x) ((x*(x-1))/2)
+#define all(x) x.begin() , x.end()
+#define ll long long
+#define ld long double
+#define vii vector  <ll>
+#define dqi deque   <ll>
+#define sii set     <ll>
+#define vch vector  <char>
+#define mii map     <ll,ll>
+#define pii pair    <ll,ll>
+#define vss vector  <string>
+#define PI 3.141592654
+
+using namespace std;
+void ONLINE__JUDGE();
+
+const int mod = 998244353;
+const int MAX = 1009;
+
+ll q , memo[MAX][MAX];
+
+void seperate( string s , vss& vec )
+{
+    for ( int i = 0; i < (int)s.length(); i++ )
+        if ( isalpha( s[i] ) == 0 && isdigit( s[i] ) == 0 ) s[i] = ' ';
+
+    stringstream in(s); string temp;
+    while ( in >> temp ) vec.push_back(temp);
+}
+
+ll solve( ll i1 , ll i2 , vss& v1 , vss& v2 )
+{
+    if ( i1 == v1.size() || i2 == v2.size() ) return 0;
+
+    ll &ret = memo[i1][i2];
+    if ( ret != -1 ) return ret;
+
+    if ( v1[i1] == v2[i2] ) return ret = ( solve( i1+1 , i2+1 , v1 , v2 )+1 );
+
+    ll leave = solve( i1+1 , i2 , v1 , v2 );
+    ll take  = solve( i1 , i2+1 , v1 , v2 );
+
+    return ret = max( leave , take );
+}
+
+int main()
+{
+    FASTIO ONLINE__JUDGE();
+
+    string x = "", y = "";
+    while ( getline( cin , x ) && getline( cin , y ) )
+    {
+        memset( memo , -1 , sizeof memo ); ++q;
+        if ( x.length() == 0 || y.length() == 0 )
+        {
+            if ( q < 10 )   cout << " " << q << ". Blank!\n";
+            else            cout << q   <<      ". Blank!\n";
+        }
+        else
+        {
+            vss v1 , v2; seperate( x , v1 ); seperate( y , v2 );
+
+            if ( q < 10 )   cout << " " << q << ". Length of longest match: " << solve(0,0,v1,v2) << "\n";
+            else            cout << q   <<      ". Length of longest match: " << solve(0,0,v1,v2) << "\n";
+        }
+        x = ""; y = "";
+    }
+    return 0;
+}
+
+
+void ONLINE__JUDGE()
+{
+    #ifndef ONLINE_JUDGE
+    freopen( "inp.c"         , "r" , stdin  );
+    //freopen( "OutPut.txt"   , "w" , stdout );
+    #endif // ONLINE_JUDGE
+}
