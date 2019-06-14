@@ -1,0 +1,22 @@
+struct frac
+{
+    ll n ,d; frac(){};
+    frac( const ll& N , const ll&D = 1 ) : n(N) , d(D)
+    {
+        ll g = __gcd( abs(n) , abs(d) );
+        if ( !g ){ this->n = this->d = 0; return; }
+        n /= g; d /= g;
+        if ( n == 0 ) d = 1;
+        if ( d == 0 ) n = 1;
+        if ( n <  0 ) n *= -1 , d *= -1;
+    }
+    bool operator < (const frac &f ) const { return n*f.d <  d*f.n; }
+    bool operator > (const frac &f ) const { return n*f.d >  d*f.n; }
+    bool operator== (const frac &f ) const { return n*f.d == d*f.n; }
+    frac operator * (const frac &f ) const { return frac( n*f.n , d*f.d); }
+    frac operator / (const frac &f ) const { return frac( n*f.d , d*f.n); }
+    frac operator - (const frac &f ) const { return frac( n*f.d - d*f.n , d*f.d); }
+    frac operator + (const frac &f ) const { return frac( n*f.d + d*f.n , d*f.d); }
+    frac operator = (const frac &f )       { n = f.n; d = f.d; return *this; }
+    friend ostream& operator << ( ostream& out , frac f ){ out << f.n << "/" << f.d; return out; }
+};
