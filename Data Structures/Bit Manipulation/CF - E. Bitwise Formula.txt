@@ -1,5 +1,5 @@
-// NAME 	: E. Bitwise Formula
-// problem URL 	: <a>http://codeforces.com/contest/779/problem/E</a>
+// NAME 	    : E. Bitwise Formula
+// problem URL 	: http://codeforces.com/contest/779/problem/E
 // Submission 	: http://codeforces.com/contest/779/submission/53721992
 
 #include <bits/stdc++.h>
