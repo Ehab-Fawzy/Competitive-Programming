@@ -1,0 +1,91 @@
+// https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=378
+// 437 - The Tower of Babylon
+
+#include <bits/stdc++.h>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
+
+#define FASTIO ios::sync_with_stdio(NULL); cin.tie(NULL);
+#define mem( a , b ) memset( a , b , sizeof a )
+#define popcnt(x) __builtin_popcount(x)
+#define all(x) x.begin() , x.end()
+#define SZ(a) (int)a.size()
+#define ll  long long
+#define ld  long double
+#define vii vector  <ll>
+#define dqi deque   <ll>
+#define sii set     <ll>
+#define mii map     <ll,ll>
+#define pii pair    <ll,ll>
+#define vss vector  <string>
+#define pb  push_back
+#define F   first
+#define S   second
+#define L   length()
+#define PI  3.141592654
+#define OO (ll)1e18
+using namespace std;
+void ONLINE__JUDGE();
+
+pii swapii( pii pr ){ return { pr.S , pr.F }; }
+int dx[] = {  0 ,  0 , -1 , +1 , -1 , +1 , -1 , +1 };
+int dy[] = { -1 , +1 ,  0 ,  0 , -1 , +1 , +1 , -1 };
+
+const int mod = 7901;
+const int MAX = 185;
+
+ll x , memo[ MAX ][ MAX ];
+ll go( ll i , ll ed , vector < pii >& vec , map < pii , ll >& mp , ll cur = 0 )
+{
+    if ( i == ed ) return 0;
+
+    ll& ret = memo[i][cur];
+    if ( ret != -1 ) return ret;
+
+    ll leave = go( i+1 , ed , vec , mp , cur ) , pick = 0;
+    if ( vec[i].F > vec[cur].F && vec[i].S > vec[cur].S )
+    {
+        pick = mp[ vec[i] ] + go( i+1 , ed , vec , mp , i );
+    }
+    return ret = max( leave , pick );
+}
+
+int main()
+{
+    ll cse = 1;
+    while ( cin >> x && x > 0 )
+    {
+        map < pii , ll > mp; vector < pii > vec;
+        for ( int i = 0; i < x; ++i )
+        {
+            ll a , b , c;  cin >> a >> b >> c;
+            pii pa = {a , b} , pb = {a , c} , pc = {b , c};
+
+            mp[ pa ] = max( mp[ pa ] , c );
+            vec.pb(pa); pa = swapii(pa); vec.pb(pa);
+            mp[ pa ] = max( mp[ pa ] , c );
+
+            mp[ pb ] = max( mp[ pb ] , b );
+            vec.pb(pb); pb = swapii(pb); vec.pb(pb);
+            mp[ pb ] = max( mp[ pb ] , b );
+
+            mp[ pc ] = max( mp[ pc ] , a );
+            vec.pb(pc); pc = swapii(pc); vec.pb(pc);
+            mp[ pc ] = max( mp[ pc ] , a );
+        }
+
+        vec.pb( {-1 , -1} ); sort( all(vec) ); mem( memo , -1 );
+        cout << "Case " << cse++ << ": maximum height = ";
+        cout << go( 1 , SZ(vec) , vec , mp ) << "\n";
+    }
+    return 0;
+}
+
+void ONLINE__JUDGE()
+{
+    #ifndef ONLINE_JUDGE
+    freopen( "inp.c"         , "r" , stdin  );
+    freopen( "OutPut.txt"   , "w" , stdout );
+    #endif // ONLINE_JUDGE
+}
