@@ -1,0 +1,24 @@
+ll LIS( vii vec , bool showSequence = 0 )
+{
+    ll n   = SZ(vec); vii I( n+1 , OO ) , l( n , 1 ); I[0] *= -1;
+    ll lis = 1;
+    for ( int j = 0; j < n; ++j )
+    {
+        ll idx = lower_bound( all(I) , vec[j] ) - I.begin();
+        I[idx] = vec[j]; l[j] = idx; lis = max( lis , idx );
+    }
+    if ( showSequence )
+    {
+        dqi lisSeq; ll cur = lis+1;
+        for ( int i = n-1; i >= 0; --i )
+        {
+            if ( l[i] == cur-1 )
+            {
+                lisSeq.push_front(vec[i]); cur--;
+            }
+        }
+        for ( ll i : lisSeq ) cout << i << " ";
+        cout << "\n";
+    }
+    return lis;
+}
