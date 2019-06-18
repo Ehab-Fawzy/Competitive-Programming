@@ -1,0 +1,81 @@
+// 10534 - Wavio Sequence
+// https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1475
+
+
+#include <bits/stdc++.h>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
+
+#define FASTIO ios::sync_with_stdio(NULL); cin.tie(NULL);
+#define mem( a , b ) memset( a , b , sizeof a )
+#define popcnt(x) __builtin_popcount(x)
+#define all(x) x.begin() , x.end()
+#define SZ(a) (int)a.size()
+#define ll  long long
+#define ld  long double
+#define vii vector  <ll>
+#define dqi deque   <ll>
+#define sii set     <ll>
+#define mii map     <ll,ll>
+#define pii pair    <ll,ll>
+#define vss vector  <string>
+#define pb  push_back
+#define F   first
+#define S   second
+#define L   length()
+#define PI  3.141592654
+#define OO (ll)1e18
+using namespace std;
+void ONLINE__JUDGE();
+
+pii swapii( pii pr ){ return { pr.S , pr.F }; }
+int dx[] = {  0 ,  0 , -1 , +1 , -1 , +1 , -1 , +1 };
+int dy[] = { -1 , +1 ,  0 ,  0 , -1 , +1 , +1 , -1 };
+
+const ll MOD = 1e9+7;
+
+ll LIS( dqi vec , mii& mp , bool showSequence = 0 )
+{
+    ll n   = SZ(vec); vii I( n+1 , OO ) , l( n , 1 ); I[0] *= -1;
+    ll lis = 1;
+    for ( int j = 0; j < n; ++j )
+    {
+        ll idx = lower_bound( all(I) , vec[j] ) - I.begin();
+        I[idx] = vec[j]; l[j] = idx; lis = max( lis , idx );
+    }
+    if ( showSequence )
+        for ( ll i = SZ(l)-1; i >= 0; --i ) mp[ l[i] ] = i;
+    return lis;
+}
+ll x;
+
+int main()
+{
+    while ( cin >> x && x > 0 )
+    {
+        dqi a , b; mii mpa , mpb;
+        for ( ll i = 0,j; i < x; ++i )
+            cin >> j , a.pb(j) , b.push_front(j);
+
+        ll y = LIS( a , mpa , 1 ) , z = LIS( b , mpb , 1 ) , mn = min(y , z);
+        while ( mn )
+        {
+            if ( mpa[mn]+mpb[mn] < x )
+            {
+                cout << 2*mn - 1 << "\n";
+                break;
+            }
+            mn--;
+        }
+    }
+    return 0;
+}
+
+void ONLINE__JUDGE()
+{
+    #ifndef ONLINE_JUDGE
+    freopen( "inp.c"         , "r" , stdin  );
+    //freopen( "OutPut.txt"   , "w" , stdout );
+    #endif // ONLINE_JUDGE
+}
