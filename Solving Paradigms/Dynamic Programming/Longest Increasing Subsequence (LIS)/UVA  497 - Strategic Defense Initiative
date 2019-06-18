@@ -1,0 +1,98 @@
+// 497 - Strategic Defense Initiative
+// https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=438
+
+
+#include <bits/stdc++.h>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
+
+#define FASTIO ios::sync_with_stdio(NULL); cin.tie(NULL);
+#define mem( a , b ) memset( a , b , sizeof a )
+#define popcnt(x) __builtin_popcount(x)
+#define all(x) x.begin() , x.end()
+#define SZ(a) (int)a.size()
+#define ll  long long
+#define ld  long double
+#define vii vector  <ll>
+#define dqi deque   <ll>
+#define sii set     <ll>
+#define mii map     <ll,ll>
+#define pii pair    <ll,ll>
+#define vss vector  <string>
+#define pb  push_back
+#define F   first
+#define S   second
+#define L   length()
+#define PI  3.141592654
+#define OO (ll)1e18
+using namespace std;
+void ONLINE__JUDGE();
+
+pii swapii( pii pr ){ return { pr.S , pr.F }; }
+int dx[] = {  0 ,  0 , -1 , +1 , -1 , +1 , -1 , +1 };
+int dy[] = { -1 , +1 ,  0 ,  0 , -1 , +1 , +1 , -1 };
+
+const ll MOD = 1e9+7;
+
+ll LIS( vii vec , bool showSequence = 0 )
+{
+    ll n   = SZ(vec); vii I( n+1 , OO ) , l( n , 1 ); I[0] *= -1;
+    ll lis = 1;
+    for ( int j = 0; j < n; ++j )
+    {
+        ll idx = lower_bound( all(I) , vec[j] ) - I.begin();
+        I[idx] = vec[j]; l[j] = idx; lis = max( lis , idx );
+    }
+
+    cout << "Max hits: " << lis << "\n";
+    if ( showSequence )
+    {
+        dqi lisSeq; ll cur = lis+1;
+        for ( int i = n-1; i >= 0; --i )
+        {
+            if ( l[i] == cur-1 )
+            {
+                lisSeq.push_front(vec[i]); cur--;
+            }
+        }
+        for ( ll i : lisSeq ) cout << i << "\n";
+    }
+    return lis;
+}
+ll q;
+
+int main()
+{
+    cin >> q; bool ok = 1 , st = 1;
+    while ( ok )
+    {
+        string s; ok = 0; vii vec;
+        while ( !cin.eof() )
+        {
+            ok = 1;
+            getline( cin , s );
+            if ( s.L == 0 ) break;
+            else
+            {
+                stringstream in(s); ll y; in >> y;
+                vec.pb(y);
+            }
+        }
+        if ( ok && !vec.empty() )
+        {
+            if ( st ) st = 0;
+            else cout << "\n";
+            LIS(vec , 1);
+        }
+    }
+    return 0;
+}
+
+void ONLINE__JUDGE()
+{
+    #ifndef ONLINE_JUDGE
+    freopen( "inp.c"         , "r" , stdin  );
+    //freopen( "OutPut.txt"   , "w" , stdout );
+    #endif // ONLINE_JUDGE
+}
