@@ -1,0 +1,97 @@
+// D. Mysterious Present
+// https://codeforces.com/contest/4/problem/D
+// https://codeforces.com/contest/4/submission/55727772
+
+
+#include <bits/stdc++.h>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
+
+#define FASTIO ios::sync_with_stdio(NULL); cin.tie(NULL);
+#define mem( a , b ) memset( a , b , sizeof a )
+#define popcnt(x) __builtin_popcount(x)
+#define all(x) x.begin() , x.end()
+#define SZ(a) (int)a.size()
+#define ll  long long
+#define ld  long double
+#define vii vector  <ll>
+#define dqi deque   <ll>
+#define sii set     <ll>
+#define mii map     <ll,ll>
+#define pii pair    <ll,ll>
+#define vss vector  <string>
+#define pb  push_back
+#define F   first
+#define S   second
+#define L   length()
+#define PI  3.141592654
+#define OO (ll)1e18
+using namespace std;
+void ONLINE__JUDGE();
+
+pii swapii( pii pr ){ return { pr.S , pr.F }; }
+int dx[] = {  0 ,  0 , -1 , +1 , -1 , +1 , -1 , +1 };
+int dy[] = { -1 , +1 ,  0 ,  0 , -1 , +1 , +1 , -1 };
+
+const ll MOD = 1e9+7;
+
+ll x, y , z; deque < pii > vec , v;
+map < pii , vii > mp; ll idx = 1;
+
+void LIS( deque <pii>& vec )
+{
+    ll lis = 1 , n = SZ(vec); vii l( n , 1 );
+    for ( int i = 0; i < n; ++i )
+    {
+        for ( int j = 0; j < i; ++j )
+        {
+            if ( vec[i].F > vec[j].F && vec[i].S > vec[j].S )
+                l[i] = max( l[i] , l[j]+1 );
+        }
+        lis  = max( lis  , l[i] );
+    }
+
+    ll cur = lis + 1; deque<pii> seq;
+    for ( int i = SZ(l)-1; i >= 0; --i )
+    {
+        if ( l[i] == cur-1 )
+        {
+            if ( seq.empty() ) seq.push_front( vec[i] ) , cur--;
+            else
+            {
+                if ( vec[i].F < seq.front().F && vec[i].S < seq.front().S )
+                    seq.push_front( vec[i] ) , cur--;
+            }
+        }
+    }
+    sort( all(seq) );
+
+    cout << SZ(seq) << "\n";
+    for ( auto i : seq ) cout << mp[i].back() << " " , mp[i].pop_back();
+}
+
+int main()
+{
+    FASTIO ONLINE__JUDGE();
+
+    cin >> x >> y >> z; v.resize(x);
+    for ( auto& i : v )
+    {
+        cin >> i.F >> i.S , mp[i].pb(idx++);
+        if ( i.F > y && i.S > z ) vec.pb(i);
+    }
+    sort( all(vec) );
+
+    if ( SZ(vec) == 0 ) cout << 0;
+    else LIS(vec);
+    return 0;
+}
+
+void ONLINE__JUDGE()
+{
+    #ifndef ONLINE_JUDGE
+    freopen( "inp.c"         , "r" , stdin  );
+    //freopen( "OutPut.txt"   , "w" , stdout );
+    #endif // ONLINE_JUDGE
+}
