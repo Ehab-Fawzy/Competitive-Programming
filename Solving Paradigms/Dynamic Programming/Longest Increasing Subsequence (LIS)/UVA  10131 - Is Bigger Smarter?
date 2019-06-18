@@ -1,0 +1,79 @@
+// 10131 - Is Bigger Smarter?
+// https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1072
+
+
+#include <bits/stdc++.h>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
+
+#define FASTIO ios::sync_with_stdio(NULL); cin.tie(NULL);
+#define mem( a , b ) memset( a , b , sizeof a )
+#define popcnt(x) __builtin_popcount(x)
+#define all(x) x.begin() , x.end()
+#define SZ(a) (int)a.size()
+#define ll  long long
+#define ld  long double
+#define vii vector  <ll>
+#define dqi deque   <ll>
+#define sii set     <ll>
+#define mii map     <ll,ll>
+#define pii pair    <ll,ll>
+#define vss vector  <string>
+#define pb  push_back
+#define F   first
+#define S   second
+#define L   length()
+#define PI  3.141592654
+#define OO (ll)1e18
+using namespace std;
+void ONLINE__JUDGE();
+
+pii swapii( pii pr ){ return { pr.S , pr.F }; }
+int dx[] = {  0 ,  0 , -1 , +1 , -1 , +1 , -1 , +1 };
+int dy[] = { -1 , +1 ,  0 ,  0 , -1 , +1 , +1 , -1 };
+
+const ll MOD = 1e9+7;
+
+map < pii , vii > mp; ll idx = 1;
+void LIS( vector<pii> vec , bool showSequence = 0 )
+{
+    ll n = SZ(vec) , lis = 1; vii l(n , 1);
+    for ( int i = 0; i < n; ++i )
+    {
+        for ( int j = 0; j < i; ++j )
+        {
+            if ( vec[j].F < vec[i].F && vec[j].S > vec[i].S )
+                l[i] = max( l[i] , l[j]+1 );
+        }
+        lis = max( lis , l[i] );
+    }
+
+    cout << lis << "\n"; dqi seq; ll cur = lis+1;
+    for ( int i = SZ(l)-1; i >= 0; --i )
+    {
+        if ( l[i] == cur-1 )
+        {
+            seq.push_front( mp[ vec[i] ].back() );
+            mp[ vec[i] ].pop_back(); cur--;
+        }
+    }
+    for ( ll i : seq ) cout << i << "\n";
+}
+ll x ,y; vector < pii > vec;
+
+int main()
+{
+    while ( cin >> x >> y && x > 0 && y > 0 )
+        vec.pb( {x , y} ) , mp[ {x , y} ].pb(idx++);
+    sort( all(vec) ); LIS(vec);
+    return 0;
+}
+
+void ONLINE__JUDGE()
+{
+    #ifndef ONLINE_JUDGE
+    freopen( "inp.c"         , "r" , stdin  );
+    //freopen( "OutPut.txt"   , "w" , stdout );
+    #endif // ONLINE_JUDGE
+}
