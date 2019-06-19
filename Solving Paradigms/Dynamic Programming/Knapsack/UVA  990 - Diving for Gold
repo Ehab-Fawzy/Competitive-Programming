@@ -1,0 +1,105 @@
+// 990 - Diving for Gold
+// https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=931
+
+#include <bits/stdc++.h>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
+
+#define FASTIO ios::sync_with_stdio(NULL); cin.tie(NULL);
+#define mem( a , b ) memset( a , b , sizeof a )
+#define popcnt(x) __builtin_popcount(x)
+#define all(x) x.begin() , x.end()
+#define SZ(a) (int)a.size()
+#define ll  long long
+#define ld  long double
+#define vii vector  <ll>
+#define dqi deque   <ll>
+#define sii set     <ll>
+#define vpi vector  <pii>
+#define mii map     <ll,ll>
+#define pii pair    <ll,ll>
+#define vss vector  <string>
+#define pb  push_back
+#define F   first
+#define S   second
+#define L   length()
+#define PI  3.141592654
+#define OO (ll)1e18
+using namespace std;
+void ONLINE__JUDGE();
+
+pii swapii( pii pr ){ return { pr.S , pr.F }; }
+int dx[] = {  0 ,  0 , -1 , +1 , -1 , +1 , -1 , +1 };
+int dy[] = { -1 , +1 ,  0 ,  0 , -1 , +1 , +1 , -1 };
+
+const ll MOD = 1e9 + 7;
+const ll MAX = 1e5 + 9;
+
+ll memo[39][1009];
+ll go( ll i , ll ed , vpi& vec , ll t , ll w )
+{
+    if ( i == ed ) return 0;
+
+    ll& ret = memo[i][t];
+    if ( ret != -1 ) return ret;
+
+    ll leave = go( i+1 , ed , vec , t , w ) , pick = 0;
+    ll val = 3 * vec[i].F * w;
+    if ( t >= val )
+        pick = vec[i].S + go( i+1 , ed , vec , t-val , w );
+      
+    return ret = max( leave , pick );
+}
+
+void buildPath( ll i , ll ed , vpi& vec , ll t , ll w , vpi& res )
+{
+    if ( i == ed ) return;
+
+    ll leave = go( i+1 , ed , vec , t , w ) , pick = 0;
+    ll val = 3 * vec[i].F * w;
+    if ( t >= val )
+        pick = vec[i].S + go( i+1 , ed , vec , t-val , w );
+
+    if ( pick >= leave )
+    {
+        res.pb( {vec[i].F , vec[i].S} );
+        buildPath( i+1 , ed , vec , t-val , w , res );
+    }
+    else
+    {
+        buildPath( i+1 , ed , vec , t , w , res ) ;
+    }
+    return;
+}
+ll w,t;
+
+int main()
+{
+    bool ok = 1;
+    while ( cin >> t >> w && w+t > 0 )
+    {
+        if ( ok ) ok = 0;
+        else cout << "\n";
+
+        ll x; cin >> x; vpi vec; vec.resize(x);
+        for ( auto& i : vec ) cin >> i.F >> i.S;
+
+        mem( memo , -1 );
+        cout << go( 0 , x , vec , t , w );
+
+        cout << "\n"; vpi res;
+        buildPath ( 0 , x , vec , t , w , res );
+        cout << SZ(res) << "\n";
+        for ( auto i : res ) cout << i.F << " " << i.S << "\n";
+    }
+    return 0;
+}
+
+void ONLINE__JUDGE()
+{
+    #ifndef ONLINE_JUDGE
+    freopen( "inp.c"         , "r" , stdin  );
+    //freopen( "OutPut.txt"   , "w" , stdout );
+    #endif // ONLINE_JUDGE
+}
