@@ -1,0 +1,113 @@
+// 1112 - Mice and Maze
+// https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3553
+
+
+#include <bits/stdc++.h>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
+
+#define FASTIO ios::sync_with_stdio(NULL); cin.tie(NULL);
+#define show(x) cerr << #x << " = " << x << "\n"
+#define mem( a , b ) memset( a , b , sizeof a )
+#define popcnt(x) __builtin_popcount(x)
+#define all(x) x.begin() , x.end()
+#define SZ(a) (int)a.size()
+#define ll  long long
+#define ld  long double
+#define vii vector  <ll>
+#define dqi deque   <ll>
+#define sii set     <ll>
+#define vpi vector  <pii>
+#define mii map     <ll,ll>
+#define pii pair    <ll,ll>
+#define vss vector  <string>
+#define pb  push_back
+#define F   first
+#define S   second
+#define L   length()
+#define PI  3.141592654
+#define OO (ll)1e18
+using namespace std;
+void ONLINE__JUDGE();
+
+pii swapii( pii pr ){ return { pr.S , pr.F }; }
+int dx[] = {  0 ,  0 , -1 , +1 , -1 , +1 , -1 , +1 };
+int dy[] = { -1 , +1 ,  0 ,  0 , -1 , +1 , +1 , -1 };
+
+const ll MOD = 1e9 + 7;
+const ll MAX = 1e3 + 9;
+
+struct edge
+{
+    ll to , cost;
+    edge( ll _to , ll _cost ){ to = _to; cost = _cost; }
+    friend ostream& operator << ( ostream& out , edge e ){
+    out << e.to << " " << e.cost << "\n"; return out; }
+    bool operator < ( const edge& e ) const { return cost > e.cost; }
+};
+ll q , x , y , t;
+vector<edge> adj[ 109 ];
+
+void Clear()
+{
+    for ( int i = 0; i < 109; ++i ) adj[i].clear();
+}
+
+ll Dijkstra( ll src )
+{
+    vii dist( 109 , OO ); dist[src] = 0;
+    priority_queue <edge> pq; pq.push( {src , 0} );
+
+    while ( !pq.empty() )
+    {
+        edge e = pq.top(); pq.pop();
+        if ( dist[e.to] <= e.cost )
+        {
+            for ( edge ne : adj[e.to] )
+            {
+                if ( dist[ne.to] > dist[e.to] + ne.cost )
+                {
+                    dist[ne.to] = dist[e.to] + ne.cost;
+                    pq.push( {ne.to , dist[ne.to]} );
+                }
+            }
+        }
+    }
+
+    ll cnt = 0;
+    for ( int i = 0; i < 109; ++i )
+        if ( dist[i] <= t ) cnt++;
+    return cnt;
+}
+
+int main()
+{
+    FASTIO //ONLINE__JUDGE();
+
+    cin >> q; bool ok = 1;
+    while ( q-- )
+    {
+        if ( ok ) ok = 0;
+        else cout << "\n";
+
+        cin >> x >> y >> t; ll in ; cin >> in;
+        while ( in-- )
+        {
+            ll a , b , c; cin >> a >> b >> c;
+            adj[b].pb( {a , c} );
+        }
+
+        cout << Dijkstra( y ) << "\n";
+        Clear();
+    }
+    return 0;
+}
+
+void ONLINE__JUDGE()
+{
+    #ifndef ONLINE_JUDGE
+    freopen( "inp.c"         , "r" , stdin  );
+    //freopen( "OutPut.txt"   , "w" , stdout );
+    #endif // ONLINE_JUDGE
+}
