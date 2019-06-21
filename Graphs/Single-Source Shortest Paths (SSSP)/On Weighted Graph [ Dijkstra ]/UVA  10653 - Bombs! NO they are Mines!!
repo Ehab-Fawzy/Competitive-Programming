@@ -1,0 +1,121 @@
+// 10653 - Bombs! NO they are Mines!!
+// https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1594
+
+#include <bits/stdc++.h>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
+
+#define FASTIO ios::sync_with_stdio(NULL); cin.tie(NULL);
+#define show(x) cerr << #x << " = " << x << "\n"
+#define mem( a , b ) memset( a , b , sizeof a )
+#define popcnt(x) __builtin_popcount(x)
+#define all(x) x.begin() , x.end()
+#define SZ(a) (int)a.size()
+#define ll  long long
+#define ld  long double
+#define vii vector  <ll>
+#define dqi deque   <ll>
+#define sii set     <ll>
+#define vpi vector  <pii>
+#define mii map     <ll,ll>
+#define pii pair    <ll,ll>
+#define vss vector  <string>
+#define pb  push_back
+#define F   first
+#define S   second
+#define L   length()
+#define PI  3.141592654
+#define OO (ll)1e18
+using namespace std;
+void ONLINE__JUDGE();
+
+pii swapii( pii pr ){ return { pr.S , pr.F }; }
+int dx[] = {  0 ,  0 , -1 , +1 , -1 , +1 , -1 , +1 };
+int dy[] = { -1 , +1 ,  0 ,  0 , -1 , +1 , +1 , -1 };
+
+const ll MOD = 1e9 + 7;
+const ll MAX = 1e3 + 9;
+
+struct edge
+{
+    ll to , cost;
+    edge( ll _to , ll _cost ){ to = _to; cost = _cost; }
+    friend ostream& operator << ( ostream& out , edge e ){
+    out << e.to << " " << e.cost << "\n"; return out; }
+    bool operator < ( const edge& e ) const { return cost > e.cost; }
+};
+
+ll x , y; ll arr[MAX][MAX];
+bool isUnSafe[MAX][MAX];
+vector<edge> adj[MAX * MAX];
+
+bool isOk( ll i , ll j )
+{
+    return i >=0 && i < x && j >= 0 && j < y && (isUnSafe[i][j] == 0);
+}
+void Clear()
+{
+    for ( int i = 0; i < MAX*MAX; ++i ) adj[i].clear();
+}
+ll Dijkstra( ll src , ll DIST )
+{
+    vii dist( MAX*MAX , OO ); dist[ src ] = 0;
+    priority_queue <edge> pq; pq.push( {src , 0} );
+
+    while ( !pq.empty() )
+    {
+        edge e = pq.top(); pq.pop();
+        if ( dist[e.to] <= e.cost )
+        {
+            for ( edge ne : adj[e.to] )
+            {
+                if ( dist[ne.to] > dist[e.to] + ne.cost )
+                {
+                    dist[ne.to] = dist[e.to] + ne.cost;
+                    pq.push( {ne.to , dist[ne.to]} );
+                }
+            }
+        }
+    }
+    return dist[DIST];
+}
+
+int main()
+{
+    FASTIO //ONLINE__JUDGE();
+
+    while ( cin >> x >> y && x+y > 0 )
+    {
+        ll z; cin >> z;
+        while ( z-- )
+        {
+            ll row , col , cnt; cin >> row >> cnt;
+            while ( cnt-- ) cin >> col , isUnSafe[row][col] = 1;
+        }
+        ll a , b , c , d;
+        cin >> a >> b >> c >> d;
+
+        ll idx = 1;
+        for ( int i = 0; i < x; ++i )
+            for ( int j = 0; j < y; ++j ) arr[i][j] = idx++;
+
+        for ( int i = 0; i < x; ++i )
+            for ( int j = 0; j < y; ++j )
+                for ( int k = 0; k < 4; ++k )
+                    if ( isOk( i+dx[k] , j+dy[k] ) && isUnSafe[i][j] == 0 )
+                        adj[ arr[i][j] ].pb({ arr[ i+dx[k] ][ j+dy[k] ] , 1 });
+
+        cout << Dijkstra( arr[a][b] , arr[c][d] ) << "\n";
+        Clear(); mem( isUnSafe , 0 );
+    }
+    return 0;
+}
+
+void ONLINE__JUDGE()
+{
+    #ifndef ONLINE_JUDGE
+    freopen( "inp.c"         , "r" , stdin  );
+    //freopen( "OutPut.txt"   , "w" , stdout );
+    #endif // ONLINE_JUDGE
+}
