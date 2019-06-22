@@ -59,7 +59,7 @@ void Dijkstra( ll src )
     while ( !pq.empty() )
     {
         edge e = pq.top(); pq.pop();
-        if ( dist[e.to] >= e.cost )
+        if ( dist[e.to] <= e.cost )
         {
             for ( edge ne : adj[e.to] )
             {
