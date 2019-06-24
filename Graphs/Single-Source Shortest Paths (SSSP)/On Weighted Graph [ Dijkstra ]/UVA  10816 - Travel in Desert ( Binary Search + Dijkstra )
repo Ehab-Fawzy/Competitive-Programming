@@ -1,0 +1,137 @@
+// 10816 - Travel in Desert
+// https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1757
+
+#include <bits/stdc++.h>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
+
+#define FASTIO ios::sync_with_stdio(NULL); cin.tie(NULL);
+#define show(x) cerr << #x << " = " << x << "\n"
+#define mem( a , b ) memset( a , b , sizeof a )
+#define popcnt(x) __builtin_popcount(x)
+#define all(x) x.begin() , x.end()
+#define SZ(a) (int)a.size()
+#define ll  long long
+#define ld  long double
+#define vii vector  <ll>
+#define dqi deque   <ll>
+#define sii set     <ll>
+#define vpi vector  <pii>
+#define mii map     <ll,ll>
+#define pii pair    <ll,ll>
+#define vss vector  <string>
+#define pb  push_back
+#define F   first
+#define S   second
+#define L   length()
+#define PI  3.141592654
+#define OO (ll)1e18
+using namespace std;
+void ONLINE__JUDGE();
+
+pii swapii( pii pr ){ return { pr.S , pr.F }; }
+int dx[] = {  0 ,  0 , -1 , +1 , -1 , +1 , -1 , +1 };
+int dy[] = { -1 , +1 ,  0 ,  0 , -1 , +1 , +1 , -1 };
+
+const ll MOD = 1e9 + 7;
+const ll MAX = 1e3 + 9;
+
+struct edge
+{
+    ll to; ld cost , temp;
+    edge( ll _to , ld _cost , ld _temp ){ to = _to; cost = _cost; temp = _temp; }
+    bool operator < ( const edge e ) const { return cost > e.cost; }
+    friend ostream& operator << ( ostream& out , edge e ){
+    out << e.to << " " << e.cost << " " << e.temp; return out; }
+};
+ll x , y, s , d;
+vector<edge> adj[109];
+
+void showPath( ll cur , vector<ld> path , bool ok = 0 )
+{
+    if ( path[cur] == -1 ) return;
+    showPath( path[cur] , path , 1 );
+    cout << cur;
+    if ( ok ) cout << " ";
+}
+
+ld Dijkstra( ll src , ld mx , bool ok = 0 )
+{
+    stringstream g; g << fixed << setprecision(1) << mx; g >> mx;
+
+    vector<ld> dist( x+9 , OO ) , path( x+9 , -1 );
+    dist[src] = path[src] = 0; vector<bool> vis( x+9 , 0 );
+    priority_queue<edge> pq; pq.push({src , 0 , 0});
+
+    while ( !pq.empty() )
+    {
+        edge e = pq.top(); pq.pop();
+        if ( !vis[e.to] )
+        {
+            if ( e.temp > mx ) continue;
+            vis[e.to] = 1;
+            for ( edge ne : adj[e.to] )
+            {
+                if ( dist[ne.to] > dist[e.to] + ne.cost && ne.temp <= mx )
+                {
+                    path[ne.to] = e.to;
+                    dist[ne.to] = dist[e.to] + ne.cost;
+                    pq.push( {ne.to , dist[ne.to] , ne.temp} );
+                }
+            }
+        }
+    }
+    if ( ok ) showPath( d , path );
+    return dist[d];
+}
+
+void Clear()
+{
+    for ( int i = 0; i < 109; ++i ) adj[i].clear();
+}
+
+int main()
+{
+    FASTIO //ONLINE__JUDGE();
+
+    while ( cin >> x >> y && x+y > 0 )
+    {
+        cin >> s >> d; vector<ld> vec;
+        for ( int i = 0; i < y; ++i )
+        {
+            ll a , b; ld c , dd;
+            cin >> a >> b >> c >> dd;
+            adj[a].pb({b , dd , c});
+            adj[b].pb({a , dd , c});
+            vec.pb( c );
+        }
+        sort( all(vec) );
+
+        ll a = 0 , b = SZ(vec)-1 , mid;
+        while ( a < b && abs( a-b ) > 1 )
+        {
+            mid = (a + b) >> 1;
+            if ( Dijkstra( s , vec[mid] ) != 1.0*OO ) b = mid;
+            else a = mid + 1;
+        }
+        mid = (a + b) >> 1; ll mn = OO;
+
+        if ( Dijkstra(s , vec[ a ] ) != 1.0*OO ) mn = min( mn , a );
+        if ( Dijkstra(s , vec[ b ] ) != 1.0*OO ) mn = min( mn , b );
+        if ( Dijkstra(s , vec[mid] ) != 1.0*OO ) mn = min( mn ,mid);
+
+        ld ret = Dijkstra( s , vec[mn] , 1 ); cout << "\n";
+        cout << fixed << setprecision(1) << ret << " " << vec[mn] << "\n";
+        Clear();
+    }
+    return 0;
+}
+
+void ONLINE__JUDGE()
+{
+    #ifndef ONLINE_JUDGE
+    freopen( "inp.c"         , "r" , stdin  );
+    freopen( "OutPut.txt"   , "w" , stdout );
+    #endif // ONLINE_JUDGE
+}
