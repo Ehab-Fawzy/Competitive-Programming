@@ -1,0 +1,108 @@
+// 10449 - Traffic
+// https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1390
+
+#include <bits/stdc++.h>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
+
+#define FASTIO ios::sync_with_stdio(NULL); cin.tie(NULL);
+#define show(x) cerr << #x << " = " << x << "\n"
+#define mem( a , b ) memset( a , b , sizeof a )
+#define popcnt(x) __builtin_popcount(x)
+#define all(x) x.begin() , x.end()
+#define SZ(a) (int)a.size()
+#define ll  long long
+#define ld  long double
+#define vii vector  <ll>
+#define dqi deque   <ll>
+#define sii set     <ll>
+#define vpi vector  <pii>
+#define mii map     <ll,ll>
+#define pii pair    <ll,ll>
+#define vss vector  <string>
+#define pb  push_back
+#define F   first
+#define S   second
+#define L   length()
+#define PI  3.141592654
+#define OO (ll)1e18
+using namespace std;
+void ONLINE__JUDGE();
+
+pii swapii( pii pr ){ return { pr.S , pr.F }; }
+int dx[] = {  0 ,  0 , -1 , +1 , -1 , +1 , -1 , +1 };
+int dy[] = { -1 , +1 ,  0 ,  0 , -1 , +1 , +1 , -1 };
+
+const ll MOD = 1e9 + 7;
+const ll MAX = 209 + 9;
+
+ll n , m , q , x;
+vector<pii> adj[MAX];
+vii dist( MAX , OO );
+vii negc( MAX , OO );
+
+void Clear()
+{
+    for ( int i = 0; i < MAX; ++i ) adj[i].clear();
+    for ( int i = 0; i < MAX; ++i ) dist[i] = negc[i] = OO;
+}
+void BellmanFord( bool ok = 0 )
+{
+    dist[1] = 0; negc[1] = 0;
+    for ( int i = 1; i < n; ++i )
+    {
+        bool stop = 1;
+        for ( int u = 1; u <= n; ++u )
+            for ( int j = 0; j < SZ(adj[u]); ++j )
+            {
+                pii ne = adj[u][j];
+                if ( ok == 0 && dist[ne.F] > dist[u] + ne.S )
+                    dist[ne.F] = dist[u] + ne.S , negc[ne.F] = dist[ne.F] , stop = 0;
+                if ( ok == 1 && negc[ne.F] > negc[u] + ne.S )
+                    negc[ne.F] = negc[u] + ne.S , stop = 0;
+            }
+        if ( stop ) break;
+    }
+}
+
+int main()
+{
+    FASTIO //ONLINE__JUDGE();
+
+    ll cse = 1;
+    while ( cin >> n && n > 0 )
+    {
+        vii vec; vec.resize(n+9); Clear();
+        for ( int i = 1; i <= n; ++i ) cin >> vec[i];
+
+        cin >> m;
+        for ( int i = 0; i < m; ++i )
+        {
+            ll a ,b; cin >> a >> b;
+            ll c = (vec[b] - vec[a]) * (vec[b] - vec[a]) * (vec[b] - vec[a]);
+            adj[a].pb( {b , c} );
+        }
+
+        BellmanFord(); BellmanFord(1);
+        cout << "Set #" << cse++ << "\n";
+
+        cin >> q;
+        while ( q-- )
+        {
+            cin >> x;
+            if ( dist[x] < 3 || dist[x] > 1e12 || dist[x] > negc[x] ) cout << "?";
+            else cout << dist[x];
+            cout << "\n";
+        }
+    }
+    return 0;
+}
+
+void ONLINE__JUDGE()
+{
+    #ifndef ONLINE_JUDGE
+    freopen( "inp.c"         , "r" , stdin  );
+    //freopen( "OutPut.txt"   , "w" , stdout );
+    #endif // ONLINE_JUDGE
+}
