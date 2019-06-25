@@ -1,0 +1,92 @@
+// 558 - Wormholes
+// https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=499
+
+#include <bits/stdc++.h>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
+
+#define FASTIO ios::sync_with_stdio(NULL); cin.tie(NULL);
+#define show(x) cerr << #x << " = " << x << "\n"
+#define mem( a , b ) memset( a , b , sizeof a )
+#define popcnt(x) __builtin_popcount(x)
+#define all(x) x.begin() , x.end()
+#define SZ(a) (int)a.size()
+#define ll  long long
+#define ld  long double
+#define vii vector  <ll>
+#define dqi deque   <ll>
+#define sii set     <ll>
+#define vpi vector  <pii>
+#define mii map     <ll,ll>
+#define pii pair    <ll,ll>
+#define vss vector  <string>
+#define pb  push_back
+#define F   first
+#define S   second
+#define L   length()
+#define PI  3.141592654
+#define OO (ll)1e18
+using namespace std;
+void ONLINE__JUDGE();
+
+pii swapii( pii pr ){ return { pr.S , pr.F }; }
+int dx[] = {  0 ,  0 , -1 , +1 , -1 , +1 , -1 , +1 };
+int dy[] = { -1 , +1 ,  0 ,  0 , -1 , +1 , +1 , -1 };
+
+const ll MOD = 1e9 + 7;
+const ll MAX = 1e3 + 9;
+
+ll q , n , m;
+vpi adj[MAX];
+
+void BellmanFord()
+{
+    vii dist( n+9 , OO ); dist[0] = 0; bool ret;
+    for ( int i = 1; i < n; ++i )
+    {
+        ret = 1;
+        for ( int u = 0; u < n; ++u )
+            for ( int j = 0; j < SZ(adj[u]); ++j )
+            {
+                pii ne = adj[u][j];
+                if ( dist[ne.F] > dist[u] + ne.S )
+                {
+                     dist[ne.F] = dist[u] + ne.S;
+                     ret = 0;
+                }
+            }
+    }
+
+    if ( ret )  cout << "not possible\n";
+    else        cout << "possible\n";
+}
+
+void Clear(){ for ( int i = 0; i < MAX; ++i ) adj[i].clear(); }
+
+int main()
+{
+    FASTIO //ONLINE__JUDGE();
+
+    cin >> q;
+    while ( q-- )
+    {
+        cin >> n >> m;
+        for ( int i = 0; i < m ; ++i )
+        {
+            ll a, b, c; cin >> a >> b >> c;
+            adj[a].pb({b , c});
+        }
+
+        BellmanFord(); Clear();
+    }
+    return 0;
+}
+
+void ONLINE__JUDGE()
+{
+    #ifndef ONLINE_JUDGE
+    freopen( "inp.c"         , "r" , stdin  );
+    //freopen( "OutPut.txt"   , "w" , stdout );
+    #endif // ONLINE_JUDGE
+}
