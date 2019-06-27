@@ -1,0 +1,91 @@
+// 108 - Maximum Sum 
+// https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=44
+
+// using Kadane’s Algorithm with Time Coplexity O( N^3 )
+
+
+#include <bits/stdc++.h>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
+
+#define FASTIO ios::sync_with_stdio(NULL); cin.tie(NULL);
+#define show(x) cerr << #x << " = " << x << "\n"
+#define mem( a , b ) memset( a , b , sizeof a )
+#define popcnt(x) __builtin_popcount(x)
+#define all(x) x.begin() , x.end()
+#define SZ(a) (int)a.size()
+#define ll  long long
+#define ld  long double
+#define vii vector  <ll>
+#define dqi deque   <ll>
+#define sii set     <ll>
+#define vpi vector  <pii>
+#define mii map     <ll,ll>
+#define pii pair    <ll,ll>
+#define vss vector  <string>
+#define pb  push_back
+#define F   first
+#define S   second
+#define L   length()
+#define PI  3.141592654
+#define OO (ll)1e18
+using namespace std;
+void ONLINE__JUDGE();
+
+pii swapii( pii pr ){ return { pr.S , pr.F }; }
+int dx[] = {  0 ,  0 , -1 , +1 , -1 , +1 , -1 , +1 };
+int dy[] = { -1 , +1 ,  0 ,  0 , -1 , +1 , +1 , -1 };
+
+const ll MOD = 1e9 + 7;
+const ll MAX = 200 + 9;
+
+ll n , m, mx , arr[MAX][MAX] , pre[MAX][MAX];
+ll maxSubSegment()
+{
+    for ( int i = 0; i < m; ++i ) pre[0][i] = arr[0][i];
+    for ( int i = 1; i < n; ++i )
+        for ( int j = 0; j < m; ++j ) pre[i][j] = arr[i][j] + pre[i-1][j];
+
+    ll cnt = 0;
+    for ( int i = 0; i < n; ++i )
+    {
+        for ( int j = i; j < n; ++j )
+        {
+            cnt = 0;
+            for ( int k = 0; k < m; ++k )
+            {
+                cnt += pre[j][k] - ( i == 0 ? 0 : pre[i-1][k] );
+                mx = max( mx , cnt ); if ( cnt < 0 ) cnt = 0;
+            }
+        }
+    }
+    return mx;
+}
+
+int main()
+{
+    FASTIO //ONLINE__JUDGE();
+
+    while ( cin >> n )
+    {
+        m = n; mx = -1*OO;
+        for ( int i = 0; i < n; ++i )
+            for ( int j = 0; j < m; ++j )
+                cin >> arr[i][j] , mx = max( mx , arr[i][j] );
+
+        cout << maxSubSegment() << "\n";
+        for ( int i = 0; i < MAX; ++i )
+            for ( int j = 0; j < MAX; ++j )
+                arr[i][j] = pre[i][j] = 0;
+    }
+    return 0;
+}
+
+void ONLINE__JUDGE()
+{
+    #ifndef ONLINE_JUDGE
+    freopen( "inp.c"         , "r" , stdin  );
+    freopen( "OutPut.txt"   , "w" , stdout );
+    #endif // ONLINE_JUDGE
+}
