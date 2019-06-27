@@ -1,0 +1,41 @@
+// 2D Maximum-sum subarray Kadane’s Algorithm
+
+#include <bits/stdc++.h>
+#define ll  long long
+#define OO (ll)1e18
+using namespace std;
+const ll MAX = 200 + 9;
+
+ll n , m, mx , arr[MAX][MAX] , pre[MAX][MAX];
+ll maxSubSegment()
+{
+    for ( int i = 0; i < m; ++i ) pre[0][i] = arr[0][i];
+    for ( int i = 1; i < n; ++i )
+        for ( int j = 0; j < m; ++j ) pre[i][j] = arr[i][j] + pre[i-1][j];
+
+    ll cnt = 0;
+    for ( int i = 0; i < n; ++i )
+    {
+        for ( int j = i; j < n; ++j )
+        {
+            cnt = 0;
+            for ( int k = 0; k < m; ++k )
+            {
+                cnt += pre[j][k] - ( i == 0 ? 0 : pre[i-1][k] );
+                mx = max( mx , cnt ); if ( cnt < 0 ) cnt = 0;
+            }
+        }
+    }
+    return mx;
+}
+
+int main()
+{
+    cin >> n >> m; mx = -1*OO;
+    for ( int i = 0; i < n; ++i )
+        for ( int j = 0; j < m; ++j )
+            cin >> arr[i][j] , mx = max( mx , arr[i][j] );
+
+    cout << maxSubSegment() << "\n";
+    return 0;
+}
