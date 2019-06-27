@@ -1,0 +1,69 @@
+// 10684 - The jackpot
+// https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1625
+
+#include <bits/stdc++.h>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
+
+#define FASTIO ios::sync_with_stdio(NULL); cin.tie(NULL);
+#define show(x) cerr << #x << " = " << x << "\n"
+#define mem( a , b ) memset( a , b , sizeof a )
+#define popcnt(x) __builtin_popcount(x)
+#define all(x) x.begin() , x.end()
+#define SZ(a) (int)a.size()
+#define ll  long long
+#define ld  long double
+#define vii vector  <ll>
+#define dqi deque   <ll>
+#define sii set     <ll>
+#define vpi vector  <pii>
+#define mii map     <ll,ll>
+#define pii pair    <ll,ll>
+#define vss vector  <string>
+#define pb  push_back
+#define F   first
+#define S   second
+#define L   length()
+#define PI  3.141592654
+#define OO (ll)1e18
+using namespace std;
+void ONLINE__JUDGE();
+
+pii swapii( pii pr ){ return { pr.S , pr.F }; }
+int dx[] = {  0 ,  0 , -1 , +1 , -1 , +1 , -1 , +1 };
+int dy[] = { -1 , +1 ,  0 ,  0 , -1 , +1 , +1 , -1 };
+
+const ll MOD = 1e9 + 7;
+const ll MAX = 200 + 9;
+
+ll x;
+
+int main()
+{
+    FASTIO //ONLINE__JUDGE();
+
+    while ( cin >> x && x != 0 )
+    {
+        vii vec; vec.resize(x); ll mx = -1*OO;
+        for ( ll& i : vec ) cin >> i , mx = max( mx , i );
+
+        ll cnt = 0;
+        for ( ll i : vec )
+        {
+            cnt += i; mx = max( mx , cnt );
+            if ( cnt < 0 ) cnt = 0;
+        }
+        if ( mx <= 0 )   cout << "Losing streak.\n";
+        else             cout << "The maximum winning streak is " << mx << ".\n";
+    }
+    return 0;
+}
+
+void ONLINE__JUDGE()
+{
+    #ifndef ONLINE_JUDGE
+    freopen( "inp.c"         , "r" , stdin  );
+    //freopen( "OutPut.txt"   , "w" , stdout );
+    #endif // ONLINE_JUDGE
+}
