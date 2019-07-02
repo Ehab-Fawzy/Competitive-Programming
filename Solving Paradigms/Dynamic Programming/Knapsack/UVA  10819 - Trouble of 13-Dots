@@ -1,0 +1,78 @@
+// 10819 - Trouble of 13-Dots
+// https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1760
+
+#include <bits/stdc++.h>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
+
+#define FASTIO ios::sync_with_stdio(NULL); cin.tie(NULL);
+#define show(x) cerr << #x << " = " << x << "\n"
+#define mem( a , b ) memset( a , b , sizeof a )
+#define popcnt(x) __builtin_popcount(x)
+#define all(x) x.begin() , x.end()
+#define SZ(a) (int)a.size()
+#define ll  long long
+#define ld  long double
+#define vii vector  <ll>
+#define dqi deque   <ll>
+#define sii set     <ll>
+#define vpi vector  <pii>
+#define mii map     <ll,ll>
+#define pii pair    <ll,ll>
+#define vss vector  <string>
+#define pb  push_back
+#define F   first
+#define S   second
+#define L   length()
+#define PI  3.141592654
+#define OO (ll)1e18
+#define mod(x,m) (x%m + m )%m
+using namespace std;
+void ONLINE__JUDGE();
+
+pii swapii( pii pr ){ return { pr.S , pr.F }; }
+int dx[] = {  0 ,  0 , -1 , +1 , -1 , +1 , -1 , +1 };
+int dy[] = { -1 , +1 ,  0 ,  0 , -1 , +1 , +1 , -1 };
+
+const ll MOD = 1e9 + 7;
+const ll MAX = 1e4 + 500;
+
+ll x, y; ll memo[109][MAX]; vpi vec;
+ll go( ll i = 0 , ll cur = 0 )
+{
+    if ( i == y ) return ( (cur <= x || (cur > 2000 && cur <= x+200)) ? 0 : -1*OO);
+    if ( cur > 1e4 + 200 ) return -1*OO;
+
+    ll& ret = memo[i][cur];
+    if ( ret != -1 ) return ret;
+
+    ll leave = go( i+1 , cur );
+    ll pick  = go( i+1 , cur+vec[i].F ) + vec[i].S;
+    return ret = max( leave , pick );
+}
+
+int main()
+{
+    FASTIO //ONLINE__JUDGE();
+
+    while ( cin >> x >> y )
+    {
+        vec.clear(); vec.resize(y);
+        for ( auto& i : vec ) cin >> i.F >> i.S;
+        sort(all(vec));
+
+        mem( memo , -1 );
+        cout << go() << "\n";
+    }
+    return 0;
+}
+
+
+void ONLINE__JUDGE()
+{
+    #ifndef ONLINE_JUDGE
+    freopen( "inp.c"         , "r" , stdin  );
+    freopen( "OutPut.txt"   , "w" , stdout );
+    #endif // ONLINE_JUDGE
+}
