@@ -1,2 +1,3 @@
-Link : https://codeforces.com/gym/101801
 Name : Tishreen-CPC 2018
+Link : https://codeforces.com/gym/101801
+problems PDF : https://codeforces.com/gym/101801/attachments/download/7045/tishreencpc-2018-en.pdf
