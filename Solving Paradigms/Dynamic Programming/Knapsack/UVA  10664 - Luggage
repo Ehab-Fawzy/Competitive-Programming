@@ -1,0 +1,84 @@
+// 10664 - Luggage
+// https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=652&page=show_problem&problem=1605
+
+#include <bits/stdc++.h>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
+
+#define FASTIO ios::sync_with_stdio(0); cin.tie(0);
+#define show(x) cerr << #x << " = " << x << "\n"
+#define mem( a , b ) memset( a , b , sizeof a )
+#define popcnt(x) __builtin_popcount(x)
+#define all(x) x.begin() , x.end()
+#define SZ(a) (int)a.size()
+#define ll  long long
+#define ld  long double
+#define vii vector  <ll>
+#define dqi deque   <ll>
+#define sii set     <ll>
+#define vpi vector  <pii>
+#define mii map     <ll,ll>
+#define pii pair    <ll,ll>
+#define vss vector  <string>
+#define pb  push_back
+#define F   first
+#define S   second
+#define L   length()
+#define PI  3.141592654
+#define OO (ll)1e18
+#define mod(x,m) (x%m + m )%m
+using namespace std;
+void ONLINE__JUDGE();
+
+pii swapii( pii pr ){ return { pr.S , pr.F }; }
+int dx[] = {  0 ,  0 , -1 , +1 , -1 , +1 , -1 , +1 };
+int dy[] = { -1 , +1 ,  0 ,  0 , -1 , +1 , +1 , -1 };
+
+const ll MOD = 1e9 + 7;
+const ll MAX = 1150 + 9;
+
+ll memo[25][209];
+ll q; vii vec; ll n , tot;
+ll go( ll i = 0 , ll rem = 0 )
+{
+    if ( i == n ) return 0;
+    if ( 2*rem == tot ) return 1;
+
+    ll& ret = memo[i][rem];
+    if ( ~ret ) return ret;
+
+    ll leave = go( i+1 , rem );
+    ll pick  = go( i+1 , rem+vec[i] );
+    return ret = max( leave , pick );
+}
+
+int main()
+{
+    FASTIO //ONLINE__JUDGE();
+
+    cin >> q; cin.ignore();
+    while ( q-- )
+    {
+        string s; getline( cin , s );
+        stringstream ss(s);
+
+        while ( ss >> n ) vec.pb(n) , tot += n;
+        n = SZ(vec);
+
+        mem( memo , -1 );
+        if ( go() == 1 )    cout << "YES\n";
+        else                cout << "NO\n";
+        vec.clear(); tot = 0;
+    }
+    return 0;
+}
+
+
+void ONLINE__JUDGE()
+{
+    #ifndef ONLINE_JUDGE
+    freopen( "inp.c"         , "r" , stdin  );
+    //freopen( "OutPut.txt"   , "w" , stdout );
+    #endif // ONLINE_JUDGE
+}
