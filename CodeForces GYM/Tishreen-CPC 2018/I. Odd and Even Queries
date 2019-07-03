@@ -1,0 +1,99 @@
+// I. Odd and Even Queries 
+
+
+#include <bits/stdc++.h>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
+ 
+#define FASTIO ios::sync_with_stdio(NULL); cin.tie(NULL);
+#define show(x) cerr << #x << " = " << x << "\n"
+#define mem( a , b ) memset( a , b , sizeof a )
+#define popcnt(x) __builtin_popcount(x)
+#define all(x) x.begin() , x.end()
+#define SZ(a) (int)a.size()
+#define ll  long long
+#define ld  long double
+#define vii vector  <ll>
+#define dqi deque   <ll>
+#define sii set     <ll>
+#define vpi vector  <pii>
+#define mii map     <ll,ll>
+#define pii pair    <ll,ll>
+#define vss vector  <string>
+#define pb  push_back
+#define F   first
+#define S   second
+#define L   length()
+#define PI  3.141592654
+#define OO (ll)1e18
+#define mod(x,m) (x%m + m )%m
+using namespace std;
+void ONLINE__JUDGE();
+
+pii swapii( pii pr ){ return { pr.S , pr.F }; }
+int dx[] = {  0 ,  0 , -1 , +1 , -1 , +1 , -1 , +1 };
+int dy[] = { -1 , +1 ,  0 ,  0 , -1 , +1 , +1 , -1 };
+ 
+ll binEXP( ll x , ll pw , ll MOD )
+{ ll res=1; while(pw>0){ pw%2 ? res *= x : 0; x *= x; x%=MOD; pw /= 2; res%= MOD; } return res%=MOD; }
+ 
+const ll MOD = 1e9 + 7;
+const ll MAX = 1e5 + 9;
+ 
+ll cse;
+ 
+int main()
+{
+    FASTIO //ONLINE__JUDGE();
+ 
+    cin >> cse;
+    while ( cse-- )
+    {
+        ll x , q; cin >> x >> q;
+ 
+        vii vec , odd , even;
+        vec.resize(x+1); odd.resize(x+1); even.resize(x+1);
+        for ( int i = 1; i <= x; ++i )
+        {
+            cin >> vec[i];
+            vec[i]%2 == 0 ? even[i]++ : odd[i]++;
+        }
+ 
+        for ( int i = 1; i <= x; ++i ) odd[i] += odd[i-1] , even[i] += even[i-1];
+        while ( q-- )
+        {
+            ll a , b , c; cin >> a >> b >> c;
+ 
+            if ( c == 1 )
+            {
+                ll val = odd[b]-odd[a-1] , cnt = 0;
+                cnt = binEXP( 2 , val , MOD ) - 1; cnt %= MOD;
+                cout << cnt << "\n";
+            }
+            else
+            {
+                ll newVal = even[b] - even[a-1];
+                ll newCnt = binEXP( 2 , newVal , MOD ) - 1; newCnt %= MOD;
+ 
+                ll sum = newCnt; sum %= MOD;
+ 
+                ll val = odd[b]-odd[a-1] , cnt = 0;
+                cnt = binEXP( 2 , val , MOD ) - 1; cnt %= MOD;
+                sum += newCnt*cnt; sum %= MOD;
+ 
+                cout << sum << "\n";
+            }
+        }
+    }
+    return 0;
+}
+ 
+ 
+void ONLINE__JUDGE()
+{
+    #ifndef ONLINE_JUDGE
+    freopen( "inp.c"         , "r" , stdin  );
+    //freopen( "OutPut.txt"   , "w" , stdout );
+    #endif // ONLINE_JUDGE
+}
