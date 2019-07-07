@@ -1,0 +1,8 @@
+struct bitM
+{
+    int     setbit( int msk , int idx ){ msk |= (1<<idx); return msk; }
+    bool    getbit( int msk , int idx ){ return msk&(1<<idx); }
+    int     reverseBit( int msk , int idx ){ msk ^= (1<<idx); return msk; }
+    int     reverseAll( int msk ){ for ( int i = (1<<30); i > 0; i >>= 1 ) msk ^= i; return msk; }
+    void    showBits( int msk ){ for ( int i = (1<<30); i > 0; i >>= 1 ) cout << (bool)(msk&i); cout << "\n"; }
+};
