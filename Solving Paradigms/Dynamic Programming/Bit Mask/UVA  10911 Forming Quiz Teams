@@ -1,0 +1,112 @@
+// 10911 Forming Quiz Teams
+// https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1852
+
+
+#include <bits/stdc++.h>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
+
+#define FASTIO ios::sync_with_stdio(0); cin.tie(0);
+#define show(x) cout << #x << " = " << x << "\n"
+#define mem( a , b ) memset( a , b , sizeof a )
+#define popcnt(x) __builtin_popcount(x)
+#define all(x) x.begin() , x.end()
+#define SZ(a) (int)a.size()
+#define ll  long long
+#define ld  long double
+#define vii vector  <ll>
+#define dqi deque   <ll>
+#define sii set     <ll>
+#define vpi vector  <pii>
+#define mii map     <ll,ll>
+#define pii pair    <ll,ll>
+#define pi pair     <int,int>
+#define vss vector  <string>
+#define pb  push_back
+#define F   first
+#define S   second
+#define L   length()
+#define PI  3.141592654
+#define OO (ll)1e18
+#define mod(x,m) (x%m + m )%m
+using namespace std;
+void ONLINE__JUDGE();
+
+pii swapii( pii pr ){ return { pr.S , pr.F }; }
+int dx[] = {  0 ,  0 , -1 , +1 , -1 , +1 , -1 , +1 };
+int dy[] = { -1 , +1 ,  0 ,  0 , -1 , +1 , +1 , -1 };
+
+const ll MOD = 1e9 + 7;
+const ll MAX = 1e4 + 9;
+
+ll n; vector<pair<ld,ld>> vec;
+
+struct bitM
+{
+    int     setbit( int msk , int idx ){ msk |= (1<<idx); return msk; }
+    bool    getbit( int msk , int idx ){ return msk&(1<<idx); }
+    int     reverseBit( int msk , int idx ){ msk ^= (1<<idx); return msk; }
+    int     reverseAll( int msk ){ for ( int i = (1<<30); i > 0; i >>= 1 ) msk ^= i; return msk; }
+    void    showBits( int msk ){ for ( int i = (1<<30); i > 0; i >>= 1 ) cout << (bool)(msk&i); cout << "\n"; }
+};
+
+ld getDistance( pair <ld,ld> a , pair<ld,ld> b )
+{
+    return sqrt( (a.F-b.F)*(a.F-b.F) + (a.S-b.S)*(a.S-b.S) );
+}
+
+int stop; ld dp[ (1<<18) ];
+ld go( int msk = 0 )
+{
+    if ( msk == stop ) return 0;
+
+    ld& ret = dp[ msk ];
+    if ( ret != -1.0 ) return ret;
+
+    bitM bit; ld mn = 1.0*OO;
+    for ( int i = 0; i < SZ(vec); ++i )
+        for ( int j = i+1; j < SZ(vec); ++j )
+        {
+            if ( !bit.getbit( msk , i ) && !bit.getbit( msk , j ) )
+            {
+                int nwMsk = msk;
+                nwMsk = bit.setbit( nwMsk , i );
+                nwMsk = bit.setbit( nwMsk , j );
+                mn = min( mn , go( nwMsk ) + getDistance( vec[i] , vec[j] ) );
+            }
+        }
+    return ret = mn;
+}
+
+int main()
+{
+    FASTIO //ONLINE__JUDGE();
+
+    ll cse = 0;
+    while ( cin >> n && n > 0 )
+    {
+        bitM bit; stop = 0; vec.clear();
+        for ( int i = 0; i < 2*n; ++i )
+        {
+            string s; ld a ,b;
+            cin >> s >> a >> b;
+            vec.pb( {a , b} );
+            stop = bit.setbit( stop , i );
+        }
+
+        for ( int i = 0; i < (1<<18); ++i ) dp[i] = -1.0;
+        cout << "Case " << ++cse << ": " << fixed << setprecision(2) << go() << "\n";
+    }
+    return 0;
+}
+
+
+void ONLINE__JUDGE()
+{
+    #ifndef ONLINE_JUDGE
+    freopen( "inp.c"         , "r" , stdin  );
+    //freopen( "OutPut.txt"   , "w" , stdout );
+    #endif // ONLINE_JUDGE
+}
+
