@@ -1,0 +1,104 @@
+// 10980 - Lowest Price in Town
+// https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1921
+
+#include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp> // Common file
+#include <ext/pb_ds/tree_policy.hpp>
+#include <functional> // for less
+
+#define FASTIO ios::sync_with_stdio(0); cin.tie(0);
+#define show(x) cerr << #x << " = " << x << "\n"
+#define mem( a , b ) memset( a , b , sizeof a )
+#define popcnt(x) __builtin_popcount(x)
+#define all(x) x.begin() , x.end()
+#define mod(x,m) (x%m + m )%m
+#define SZ(a) (int)a.size()
+#define ll  long long
+#define ld  long double
+#define vii vector  <ll>
+#define dqi deque   <ll>
+#define sii set     <ll>
+#define vpi vector  <pii>
+#define mii map     <ll,ll>
+#define pii pair    <ll,ll>
+#define pi  pair    <int,int>
+#define pb  push_back
+#define F   first
+#define S   second
+#define L   length()
+#define OO  (ll)1e18
+#define EPS 1e-9
+using namespace std;
+using namespace __gnu_pbds;
+void ONLINE__JUDGE();
+
+typedef tree<ll, null_type, less<ll>, rb_tree_tag,
+tree_order_statistics_node_update> ordered_set;
+pii swapii( pii pr ){ return { pr.S , pr.F }; }
+ll binEXP( ll x , ll pw , ll MOD = LLONG_MAX );
+int dx[] = {  0 ,  0 , -1 , +1 , -1 , +1 , -1 , +1 };
+int dy[] = { -1 , +1 ,  0 ,  0 , -1 , +1 , +1 , -1 };
+
+const ll MOD = 1e9 + 7;
+const ll MAX = 1e6 + 9;
+
+ld p , dp[22][102]; ll x;
+vector<pair<ll ,ld >> vec;
+ld go( ll i , ll rem ){
+
+    if ( rem <= 0 ) return 0;
+    if ( i == SZ(vec) ) return OO;
+
+    ld& ret = dp[i][rem];
+    if ( ret != -1 ) return ret;
+
+    ld cost = 1.0*OO;
+    cost = min( cost , go(i+1 , rem) );
+    cost = min( cost , vec[i].S + go(i+1 , rem-vec[i].F) );
+    cost = min( cost , vec[i].S + go(i   , rem-vec[i].F) );
+    return ret = cost;
+}
+
+int main()
+{
+    FASTIO //ONLINE__JUDGE();
+
+    ll cse = 0;
+    while ( cin >> p >> x ){
+        vec.clear(); vec.pb({1 , p});
+        for ( int i = 0; i < x; ++i ){
+            ll cnt; ld price; cin >> cnt >> price;
+            vec.pb({cnt , price});
+        }
+
+        string in; cin.ignore(); ll y;
+        getline(cin , in); stringstream ss(in);
+
+        cout << "Case " << ++cse << ":\n";
+        while ( ss >> y ){
+
+            for ( int i = 0; i < 22; ++i ){
+                for ( int j = 0; j < 102; ++j ){
+                    dp[i][j] = -1;
+                }
+            }
+
+            cout << "Buy " << y << " for $";
+            cout << fixed << setprecision(2) << go( 0 , y ) << "\n";
+        }
+    }
+    return 0;
+}
+
+
+void ONLINE__JUDGE()
+{
+    #ifndef ONLINE_JUDGE
+    freopen( "inp.c"         , "r" , stdin  );
+    //freopen( "OutPut.txt"   , "w" , stdout );
+    #endif // ONLINE_JUDGE
+}
+
+ll binEXP( ll x , ll pw , ll MOD )
+{ ll res=1; while(pw>0){ pw%2 ? res *= x : 0; x *= x; x%=MOD; pw /= 2; res%= MOD; } return res%=MOD; }
+
