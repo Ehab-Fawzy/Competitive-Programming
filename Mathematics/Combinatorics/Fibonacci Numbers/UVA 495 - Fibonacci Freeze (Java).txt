@@ -1,0 +1,30 @@
+// 495 - Fibonacci Freeze
+// https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=436
+
+import java.io.*;
+import java.util.*;
+import java.math.BigInteger;
+
+class Main {
+
+	private static Scanner sc;
+	public static void main(String[] args) {
+		sc = new Scanner( System.in );
+		int N = 5009; 
+		BigInteger fib[] = new BigInteger[N];
+		fib[0] = new BigInteger("0");
+		fib[1] = new BigInteger("1");
+		
+		for ( int i = 2; i < N; i += 1 ) {
+			fib[i] = BigInteger.ZERO;
+			fib[i] = fib[i].add(fib[i - 1]);
+			fib[i] = fib[i].add(fib[i - 2]);
+		}
+		
+		while ( sc.hasNextInt() ) {
+			int in = sc.nextInt();
+			System.out.println( "The Fibonacci number for " + in + " is " + fib[in] );
+		}
+	}
+
+}
