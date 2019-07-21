@@ -11,10 +11,10 @@ void Set(BigInt &a) {
 void Print(BigInt a) {
     Set(a);
     cout << (a.size() == 0 ? 0 : a.back());
-    for ( int i = a.size()-2; i >= 0; --i ) printf( "%09d" , a[i] );
-    cout << "\n";
+    for ( int i = a.size()-2; i >= 0; --i ){
+        cout << setfill('0') << right << setw(9) << a[i];
+    }
 }
-
 
 BigInt Integer(string s) {
     BigInt ans;
