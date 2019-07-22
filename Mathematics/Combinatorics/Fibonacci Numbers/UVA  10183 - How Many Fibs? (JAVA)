@@ -1,0 +1,45 @@
+// 10183 - How Many Fibs?
+// https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1124
+
+import java.io.*;
+import java.util.*;
+import java.math.BigInteger;
+
+public class Main {
+
+	private static Scanner sc;
+	public static void main(String[] args) throws IOException {
+		sc = new Scanner( System.in );
+		
+		int N = (int)(1e4);
+		BigInteger fib[] = new BigInteger[N];
+		fib[1] = new BigInteger("1");
+		fib[2] = new BigInteger("2");
+		for ( int i = 3; i < N; ++i ) {
+			fib[i] = new BigInteger("0");
+			fib[i] = fib[i].add( fib[i - 1] );
+			fib[i] = fib[i].add( fib[i - 2] );
+		}
+		
+		while ( sc.hasNext() ) {
+			BigInteger a , b; 
+			a = sc.nextBigInteger();
+			b = sc.nextBigInteger();
+			
+			if ( a.compareTo( BigInteger.ZERO ) == 0 && b.compareTo( BigInteger.ZERO ) == 0 ) {
+				break;
+			}
+			
+			int cnt = 0;
+			for ( int i = 1; i < N; ++i ) {
+				if ( fib[i].compareTo(a) != -1 && fib[i].compareTo(b) != 1 ) {
+					cnt++;
+				}
+				if ( fib[i].compareTo(b) == 1 ) {
+					break;
+				}
+			}
+			System.out.println( cnt );
+		}
+	}
+}
