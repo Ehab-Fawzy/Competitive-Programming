@@ -1,0 +1,149 @@
+// 10334 - Ray Through Glasses
+// https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1275
+
+#include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp> // Common file
+#include <ext/pb_ds/tree_policy.hpp>
+#include <functional> // for less
+
+#pragma GCC optimize ("O3")
+#pragma GCC optimize("Ofast")
+#pragma GCC optimize ("unroll-loops")
+#pragma GCC target("sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,tune=native")
+
+#define FASTIO ios::sync_with_stdio(0); cin.tie(0);
+#define show(x) cerr << #x << " = " << x << "\n"
+#define mem( a , b ) memset( a , b , sizeof a )
+#define popcnt(x) __builtin_popcount(x)
+#define all(x) x.begin() , x.end()
+#define mod(x,m) ((x%m + m )%m)
+#define SZ(a) (int)a.size()
+#define ll  long long
+#define ld  long double
+#define vii vector  <ll>
+#define dqi deque   <ll>
+#define sii set     <ll>
+#define vpi vector  <pii>
+#define mii map     <ll,ll>
+#define pii pair    <ll,ll>
+#define pi  pair    <int,int>
+#define pb  push_back
+#define F   first
+#define S   second
+#define L   length()
+#define OO  (ll)1e18
+#define EPS 1e-9
+using namespace std;
+using namespace __gnu_pbds;
+void ONLINE__JUDGE();
+
+typedef tree<ll, null_type, less<ll>, rb_tree_tag,
+tree_order_statistics_node_update> ordered_set;
+pii swapii( pii pr ){ return { pr.S , pr.F }; }
+ll binEXP( ll x , ll pw , ll MOD = LLONG_MAX );
+int dx[] = {  0 ,  0 , -1 , +1 , -1 , +1 , -1 , +1 };
+int dy[] = { -1 , +1 ,  0 ,  0 , -1 , +1 , +1 , -1 };
+
+const ll MOD = 1e9 + 7;
+const ll MAX = 1e4 + 7;
+
+const int base = 1e9;
+typedef vector<int> BigInt;
+
+void Set(BigInt &a) {
+    while (a.size() > 1 && a.back() == 0) a.pop_back();
+}
+
+void Print(BigInt a) {
+    Set(a);
+    cout << (a.size() == 0 ? 0 : a.back());
+    for ( int i = a.size()-2; i >= 0; --i ){
+        cout << setfill('0') << right << setw(9) << a[i];
+    }
+}
+
+BigInt Integer(string s) {
+    BigInt ans;
+    if (s[0] == '-') return ans;
+    if (s.size() == 0) {ans.pb(0); return ans;}
+    while (s.size()%9 != 0) s = '0'+s;
+    for (int i=0;i<(int)s.size();i+=9) {
+        int v = 0;
+        for (int j=i;j<i+9;j++) v = v*10+(s[j]-'0');
+        ans.insert(ans.begin(),v);
+    }
+    Set(ans);
+    return ans;
+}
+
+BigInt operator + (BigInt a, BigInt b) {
+    Set(a); Set(b); BigInt ans; int carry = 0;
+
+    for ( int i = 0; i <= (int)max( a.size() , b.size() )-1; ++i ){
+        if (i < (int)a.size()) carry += a[i];
+        if (i < (int)b.size()) carry += b[i];
+        ans.pb(carry%base);
+        carry /= base;
+    }
+    if (carry) ans.pb(carry);
+    Set(ans);
+    return ans;
+}
+
+ll x; int vis[1009][10];
+BigInt dp[1009][10];
+
+BigInt go( ll i , int msk ){
+
+    if ( i == x ) return Integer("1");
+
+    if ( ~vis[i][msk] ) return dp[i][msk];
+
+    BigInt ans = Integer("0");
+    if ( msk == 0 ){
+        ans = ans + go(i+1 , 2);
+        ans = ans + go(i+1 , 4);
+    }
+    else if ( msk == 2 ){
+        ans = ans + go(i+1 , 1);
+    }
+    else if ( msk == 4 ){
+        ans = ans + go(i+1 , 2);
+        ans = ans + go(i+1 , 1);
+    }
+    else if ( msk == 1 ){
+        ans = ans + go(i+1 , 2);
+        ans = ans + go(i+1 , 4);
+    }
+
+    vis[i][msk] = 1;
+    return dp[i][msk] = ans;
+}
+
+int main()
+{
+    FASTIO //ONLINE__JUDGE();
+
+    while ( cin >> x ){
+        mem( vis , -1 );
+        for ( int i = 0; i < 1009; ++i ){
+            for ( int msk = 0; msk < 5; ++msk ){
+                dp[i][msk] = Integer("0");
+            }
+        }
+        Print( go(0 , 0) ); cout << "\n";
+    }
+    return 0;
+}
+
+
+void ONLINE__JUDGE()
+{
+    #ifndef ONLINE_JUDGE
+    freopen( "inp.c"         , "r" , stdin  );
+    //freopen( "OutPut.txt"   , "w" , stdout );
+    #endif // ONLINE_JUDGE
+}
+
+ll binEXP( ll x , ll pw , ll MOD )
+{ ll res=1; while(pw>0){ pw%2 ? res *= x : 0; x *= x; x%=MOD; pw /= 2; res%= MOD; } return res%=MOD; }
