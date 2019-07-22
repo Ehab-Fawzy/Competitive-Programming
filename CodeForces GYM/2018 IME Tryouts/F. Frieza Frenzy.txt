@@ -1,0 +1,115 @@
+// F. Frieza Frenzy
+
+#include <bits/stdc++.h>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
+ 
+#define FASTIO ios::sync_with_stdio(0); cin.tie(0);
+#define show(x) cout << #x << " = " << x << "\n"
+#define mem( a , b ) memset( a , b , sizeof a )
+#define popcnt(x) __builtin_popcount(x)
+#define all(x) x.begin() , x.end()
+#define SZ(a) (int)a.size()
+#define ll  long long
+#define ld  long double
+#define vii vector  <ll>
+#define dqi deque   <ll>
+#define sii set     <ll>
+#define vpi vector  <pii>
+#define mii map     <ll,ll>
+#define pii pair    <ll,ll>
+#define pi pair     <int,int>
+#define vss vector  <string>
+#define pb  push_back
+#define F   first
+#define S   second
+#define L   length()
+#define PI  3.141592654
+#define OO (ll)1e18
+#define mod(x,m) (x%m + m )%m
+using namespace std;
+void ONLINE__JUDGE();
+ 
+pii swapii( pii pr ){ return { pr.S , pr.F }; }
+int dx[] = {  0 ,  0 , -1 , +1 , -1 , +1 , -1 , +1 };
+int dy[] = { -1 , +1 ,  0 ,  0 , -1 , +1 , +1 , -1 };
+ 
+const ll MOD = 1e9 + 7;
+const ll MAX = 1e4 + 9;
+ 
+struct DSU
+{
+    vii parent, Rank; ll cnt;
+    DSU( ll N )
+    {
+        Rank.assign( N+9 , 0 ); parent.assign( N+9 , 0 );
+        for ( int i = 0; i <= N; ++i ) parent[i] = i;
+        cnt = N;
+    }
+    ll findSet ( ll i ) { return parent[i] == i ? i : (parent[i] = findSet(parent[i])); }
+    bool isSame( ll i , ll j ) { return findSet(i) == findSet(j); }
+    void unionSet( ll i , ll j )
+    {
+        if ( !isSame( i , j ) )
+        {
+            ll x = findSet(i) , y = findSet(j);
+            if ( Rank[x] > Rank[y] ) parent[y] = x;
+            else
+            {
+                parent[x] = y;
+                if ( Rank[x] == Rank[y] ) Rank[y]++;
+            }
+            cnt--;
+        }
+    }
+    ll getCnt(){ return cnt; }
+};
+ 
+ll x ,y; vpi vec; map < pii, ll > mp;
+vii seq; sii s; dqi res; map < ll , pii > rev;
+ 
+int main()
+{
+    FASTIO ONLINE__JUDGE();
+ 
+    cin >> x >> y; ll idx = 1;
+    for ( int i = 0; i < y; ++i )
+    {
+        ll a , b; cin >> a >> b;
+        vec.pb( {a, b} );
+        mp[ {a, b} ] = idx;
+        rev[ idx ] = {a , b};
+        idx++;
+    }
+    for ( int i = 0; i < y; ++i )
+    {
+        ll a; cin >> a;
+        s.insert( a ); seq.pb(a);
+    }
+ 
+    DSU d(x);
+    for ( auto i : vec )
+        if ( s.find( mp[i] ) == s.end() )
+            d.unionSet( i.F , i.S );
+ 
+    for ( int i = SZ(seq)-1; i >= 0; --i )
+    {
+        res.push_front( d.getCnt() );
+        pii p = rev[ seq[i] ];
+        d.unionSet( p.F , p.S );
+    }
+ 
+    for ( ll i : res ) cout << i << "\n";
+    return 0;
+}
+ 
+ 
+void ONLINE__JUDGE()
+{
+    #ifndef ONLINE_JUDGE
+    freopen( "inp.c"         , "r" , stdin  );
+    //freopen( "OutPut.txt"   , "w" , stdout );
+    #endif // ONLINE_JUDGE
+}
+ 
