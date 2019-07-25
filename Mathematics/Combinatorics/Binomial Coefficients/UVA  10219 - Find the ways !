@@ -1,0 +1,36 @@
+// 10219 - Find the ways !
+// https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1160
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.math.BigInteger;
+
+public class Main {
+
+	private static Scanner sc;
+	public static void main(String[] args) throws IOException {
+		sc = new Scanner( System.in );
+		
+		while ( sc.hasNext() ) {
+			int n = sc.nextInt();
+			int k = sc.nextInt();
+			System.out.println( ncr(n , k) );
+		}
+	}
+	
+	public static int ncr( int n , int k ) {
+		BigInteger res = new BigInteger("1");
+		BigInteger d   = new BigInteger("1");
+		if ( k > n-k ) {
+			k = n-k;
+		}
+		for ( int i = 0; i < k; ++i ) {
+			res = res.multiply( BigInteger.valueOf( n - i ) );
+			d   = d.multiply( BigInteger.valueOf( i + 1 ) );
+		}
+		
+		res = res.divide( d );
+		return res.toString().length();
+	}
+}
