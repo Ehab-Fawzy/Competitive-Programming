@@ -1,0 +1,42 @@
+// 10375 - Choose and divide
+// https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1316
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+
+public class Main {
+
+	private static Scanner sc;
+	static BigDecimal fact[] = new BigDecimal[10009];
+	public static void main(String[] args) throws IOException {
+		sc = new Scanner( System.in );
+		
+		fact[0] = BigDecimal.ONE;
+		fact[1] = BigDecimal.ONE;
+		for ( int i = 2; i < 10009; ++i ) {
+			fact[i] = fact[i - 1];
+			fact[i] = fact[i].multiply( BigDecimal.valueOf(i) );
+		}
+		
+		while ( sc.hasNext() ) {
+			int n = sc.nextInt();
+			int k = sc.nextInt();
+			int a = sc.nextInt();
+			int b = sc.nextInt();
+			BigDecimal ret = ncr(n , k , a , b);
+			System.out.println(ret);
+		}
+	}
+	
+	public static BigDecimal ncr( int n , int k , int a , int b ) {
+		BigDecimal res = fact[n];
+		res = res.multiply( fact[b] );
+		res = res.multiply( fact[a - b] );
+		
+		BigDecimal d = fact[k];
+		d = d.multiply( fact[n - k] );
+		d = d.multiply( fact[a] );
+		return res.divide(d , 5 , RoundingMode.HALF_UP);
+	}
+}
