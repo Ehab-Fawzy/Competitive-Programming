@@ -1,0 +1,74 @@
+// 10541 - Stripe
+// https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1482
+
+/**
+  Sol: for this sample 2 3 2 8 1 , we need 2+3+2+8+1 = 16 square for numbers , plus to n-1 zeros between every two consecutive numbers
+       for this reason we need another 5-1 = 4 squares , totaly we need 20 square from all 25 squares to make the encryption code ,
+       the remainder are 5 squares we need to distribute this 5 squares in (?) positions
+       
+       look at this pattern :- 
+                - BB W BBB W BB W BBBBBBBB W B -
+                ^    ^     ^    ^          ^   ^
+                |    |     |    |          |   |
+                1    2     3    4          5   6
+      
+       we have 6 positions , so the solution of this case is how many ways we can distibute 5 squares in 6 positions with repetation 
+       -> number of ways = C( 6+5-1 , 5 ) = 252
+       
+       the formula used is compination with repetation C( n+r-1 , r ).
+**/
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+
+public class Main {
+
+	private static Scanner sc;
+	public static void main(String[] args) throws IOException {
+		sc = new Scanner( System.in );
+		
+		int q = sc.nextInt();
+		while ( q > 0 ) {
+			
+			q--;
+			int n = sc.nextInt();
+			int k = sc.nextInt();
+			Vector < Integer > vec = new Vector<>();
+			
+			int sum = k-1;
+			for ( int i = 0; i < k; ++i ) {
+				int in = sc.nextInt();
+				vec.add( in ); sum += in;
+ 			}
+			
+			if ( sum > n ) {
+				System.out.println(0);
+				continue;
+			}
+			else if ( k == 0 ) {
+				System.out.println(1);
+				continue;
+			}
+			
+			int choose = n - sum;
+			System.out.println( nck( k+1 + (choose-1) , choose ) );
+		}
+	}
+	
+	public static BigInteger nck( int n , int k ) {
+		
+		BigInteger N = BigInteger.ONE;
+		BigInteger D = BigInteger.ONE;
+		
+		for ( int i = 2; i < n+1; ++i ) {
+			if ( i <= k ) {
+				D = D.multiply( BigInteger.valueOf(i) );
+			}
+			if ( i > n-k ) {
+				N = N.multiply( BigInteger.valueOf(i) );
+			}
+		}
+		return N.divide( D );
+	}
+}
