@@ -1,0 +1,46 @@
+// 485 - Pascal's Triangle of Death
+// https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=426
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.math.BigInteger;
+
+public class Main {
+
+	private static Scanner sc;
+	public static void main(String[] args) throws IOException {
+		sc = new Scanner( System.in );
+		
+		
+		System.out.println("1");
+		int N = (int)500;
+		BigInteger fib[][] = new BigInteger[N][N];
+		BigInteger ed = new BigInteger("1");
+		for ( int i = 0; i < 60; ++i ) {
+			ed = ed.multiply( new BigInteger("10") );
+		}
+		
+		boolean stop = false;
+		fib[0][0] = new BigInteger("1");
+		for ( int i = 1; i < N; ++i ) {
+			fib[i][0] = BigInteger.ONE; fib[i][i] = BigInteger.ONE;
+			System.out.print( fib[i][0] + " " );
+			for ( int k = 1; k < i; ++k ) {
+				fib[i][k] = new BigInteger("0");
+				fib[i][k] = fib[i][k].add( fib[i - 1][k - 1] );
+				fib[i][k] = fib[i][k].add( fib[i - 1][  k  ] );
+				
+				System.out.print( fib[i][k] + " " );
+				if ( fib[i][k].compareTo( ed ) != -1 ) {
+					stop = true;
+				}
+			}
+			System.out.println( fib[i][i] );
+		
+			if ( stop == true ) {
+				break;
+			}
+		}
+	}
+}
