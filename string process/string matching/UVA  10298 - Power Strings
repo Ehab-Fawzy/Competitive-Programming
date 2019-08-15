@@ -79,7 +79,7 @@ int kmp( string s , string pat ){
 }
 
 int main(){
-    FASTIO ONLINE__JUDGE();
+    FASTIO //ONLINE__JUDGE();
 
     string pat;
     while ( getline(cin , pat) && pat != "." ){
