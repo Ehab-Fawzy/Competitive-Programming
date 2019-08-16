@@ -1,0 +1,25 @@
+vii prefix_function( string pat ){
+    vii pre; pre.resize(pat.L , 0);
+    for ( int i = 1 , k = 0; i < (int)pat.L; ++i ){
+        while ( k > 0 && pat[k] != pat[i] ){
+            k = pre[k - 1];
+        }
+        if ( pat[i] == pat[k] ) ++k;
+        pre[i] = k;
+    }
+    return pre;
+}
+void kmp( string s , string pat ){
+    int n = s.L , m = pat.L;
+    vii pre = prefix_function(pat);
+    for ( int i = 0 , k = 0; i < n; ++i ){
+        while ( k > 0 && s[i] != pat[k] ){
+            k = pre[k - 1];
+        }
+        if ( s[i] == pat[k] ) k++;
+        if ( k == m ){
+            cout << i-k+1 << " ";
+            k = pre[k - 1];
+        }
+    }
+}
