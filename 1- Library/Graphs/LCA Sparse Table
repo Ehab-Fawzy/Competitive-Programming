@@ -1,0 +1,87 @@
+#include <bits/stdc++.h>
+
+#define ll  long long
+#define vi  vector  <int>
+#define pb  push_back
+#define F   first
+#define S   second
+#define lSOne(x)(x&-x)
+
+using namespace std;
+
+const ll MOD = 1e9 + 7;
+const ll MAX = 1e5 + 7;
+
+int n , m; vi adj[MAX]; bool vis[MAX];
+int E[2*MAX] , lvl[2*MAX] , f[MAX] , idx = 0;
+
+void dfs( int u , int deg = 0 ){
+
+    E[idx] = u; lvl[idx] = deg; vis[u] = 1;
+    if ( f[u] == 0 ){
+        f[u] = idx++;
+    }
+
+    for ( int v : adj[u] ){
+        if ( !vis[v] ){
+            dfs(v , deg + 1);
+            E[idx] = u; lvl[idx++] = deg;
+        }
+    }
+}
+
+const int k = 20;
+pair<int,int> table[2*MAX][k];
+void build(){
+    for ( int i = 0; i < 2*n ; ++i ){
+        table[i][0] = {lvl[i] , i};
+    }
+
+    for ( int j = 1; j <= k; ++j ){
+        for ( int i = 0; i + (1 << j) < 2*n ; ++i ){
+            if ( table[i][j - 1].F <= table[i + (1 << (j - 1))][j - 1].F ){
+                table[i][j] = table[i][j - 1];
+            }
+            else{
+                table[i][j] = table[i + (1 << (j - 1))][j - 1];
+            }
+        }
+    }
+}
+
+
+int lca( int nodeA , int nodeB ){
+    int l = min( f[nodeA] , f[nodeB] );
+    int r = max( f[nodeA] , f[nodeB] );
+
+    int mnVal = INT_MAX , mnIdx = INT_MAX;
+    for ( int diff = r - l + 1; diff > 0; ){
+        int lsb = lSOne(diff) , lg = log2(lsb);
+        if ( table[l][lg].F == mnVal ){
+            mnVal = min( mnVal , table[l][lg].F );
+            mnIdx = min( mnIdx , table[l][lg].S );
+        }
+        else if ( table[l][lg].F < mnVal ){
+            mnVal = table[l][lg].F;
+            mnIdx = table[l][lg].S;
+        }
+        diff -= lsb; l += lsb;
+    }
+    
+    return E[mnIdx];
+}
+
+int main(){
+
+    cin >> n >> m;
+    for ( int i = 0; i < m; ++i ){
+        int u , v;
+        cin >> u >> v;
+        adj[u].pb(v);
+        adj[v].pb(u);
+    }
+    dfs(1 , 0); build();
+
+    cout << lca(11 , 12) << "\n";
+    return 0;
+}
