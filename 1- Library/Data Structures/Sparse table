@@ -1,0 +1,30 @@
+const int MAX = 1e5;    // max length of array
+const int K = 17;       // ceil( log2( MAX ) )
+
+int table[MAX][k];
+vector<int> vec; int n;
+
+int f( int l , intr ){
+    //  return min( l , r );
+    //  return l + r;
+    //  return (l^r);
+}
+void build(){
+    for ( int i = 0; i < n; ++i ){
+        table[i][0] = vec[i];
+    }
+    for ( int j = 1; j <= k; ++j ){
+        for ( int i = 0; i + (1 << j) <= MAX; ++i ){
+            table[i][j] = f( table[i][j - 1] , table[i + (1 << (j - 1))][j - 1] );
+        }
+    }
+}
+
+int ask( int l , int r ){       /// base zero range
+    int ret;  /// zero || OO || -1*OO > base of function
+    for ( int diff = r - l + 1; diff > 0; ){
+        int lsb = diff&-diff , lg = log2(lsb);
+        ret = f( ret , table[l][lg] ); diff -= lsb; l += lsb;
+    }
+    return ret;
+}
