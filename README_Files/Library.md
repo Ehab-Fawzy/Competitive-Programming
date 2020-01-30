@@ -34,6 +34,24 @@
       <tr>
         <td><a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/1-%20Library/Math/nCk"> nCk </a> </td>
       </tr>
+      <tr>
+        <th> Dynamic Programming </th>
+      </tr>
+      <tr>
+        <td> <a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/1-%20Library/Solving%20Paradigms/Dynamic%20Programming/2D%20Maximum-sum%20subarray%20Kadane’s%20Algorithm"> Maximum-sum subarray Kadane’s Algorithm </a></td>
+      </tr>
+      <tr>
+        <td> <a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/1-%20Library/Solving%20Paradigms/Dynamic%20Programming/LIS.txt"> Longest Increased Subsequences </a></td>
+      </tr>
+      <tr>
+        <td> <a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/1-%20Library/Solving%20Paradigms/Dynamic%20Programming/Bit%20Mask"> Bit Mask </a></td>
+      </tr>
+      <tr>
+        <th> Strings </th>
+      </tr>
+      <tr>
+        <td> <a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/1-%20Library/string%20algorithms/kmp.txt"> KMP </a> </td>
+      </tr>
     </table>
   </body>
 </html>
