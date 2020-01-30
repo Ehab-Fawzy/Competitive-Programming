@@ -4,12 +4,12 @@
 #include <cstdio>
 #include <cstring>
 #include <cstdlib>
- 
+Â 
 #include <ext/pb_ds/assoc_container.hpp> // Common file
 #include <ext/pb_ds/tree_policy.hpp>
 #include <functional> // for less
- 
- 
+Â 
+Â 
 #define FASTIO ios::sync_with_stdio(0); cin.tie(0);
 #define show(x) cout << #x << " = " << x << "\n"
 #define mem( a , b ) memset( a , b , sizeof a )
@@ -37,29 +37,29 @@
 using namespace std;
 using namespace __gnu_pbds;
 void ONLINE__JUDGE();
- 
+Â 
 typedef tree<ld, null_type, less<ld>, rb_tree_tag,
             tree_order_statistics_node_update>
     ordered_set;
- 
+Â 
 pii swapii( pii pr ){ return { pr.S , pr.F }; }
 int dx[] = {  0 ,  0 , -1 , +1 , -1 , +1 , -1 , +1 };
 int dy[] = { -1 , +1 ,  0 ,  0 , -1 , +1 , +1 , -1 };
- 
+Â 
 const ll MOD = 1e9 + 7;
 const ll MAX = 1e5 + 9;
- 
+Â 
 ll x , l; deque<pii> vec; vii LIS;
 map < pii , ll > mp ; set<pii> s;
 ll distance( pii a , pii b )
 {
     return abs( a.F - b.F ) + abs( a.S - b.S );
 }
- 
+Â 
 int main()
 {
     FASTIO ONLINE__JUDGE();
- 
+Â 
     cin >> x >> l; vec.pb( {0 , 0} );
     for ( int i = 0; i < x; ++i )
     {
@@ -68,11 +68,11 @@ int main()
     }
     vec.pb( {l , 0} );
     sort( all(vec) );
- 
+Â 
     pii ed = {l , 0};
     while ( vec.front().F == 0 ) vec.pop_front();
     vec.push_front({0,0}); LIS.resize( SZ(vec) , 0 );
- 
+Â 
     for ( int i = 0; i < SZ(vec); ++i ) mp[ vec[i] ] = i;
     for ( int i = 0; i < SZ(vec); ++i )
     {
@@ -95,8 +95,8 @@ int main()
     cout << LIS[ mp[ ed ] ];
     return 0;
 }
- 
- 
+Â 
+Â 
 void ONLINE__JUDGE()
 {
     #ifndef ONLINE_JUDGE
