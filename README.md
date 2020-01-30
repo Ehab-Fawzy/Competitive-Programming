@@ -4,7 +4,7 @@
 
 <table>
   <tr>
-    <th> <a href="#"> Library </a> </th>
+    <th> <a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/README_Files/Library.md"> Library </a> </th>
   </tr>
   <tr>
     <th> <a href="#"> Solved Problems </a> </th>
