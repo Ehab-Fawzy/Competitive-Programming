@@ -5,7 +5,7 @@
 <table>
   <tr>
     <th> Library </th>
-    <th> <a href="#"> Link </a> </th>
+    <th style="width:100%;"> <a href="#"> Link </a> </th>
   </tr>
   <tr>
     <th> <a href="#"> Solved Problems </a> </th>
