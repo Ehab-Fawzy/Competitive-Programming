@@ -4,12 +4,12 @@
 #include <cstdio>
 #include <cstring>
 #include <cstdlib>
- 
+Â 
 #include <ext/pb_ds/assoc_container.hpp> // Common file
 #include <ext/pb_ds/tree_policy.hpp>
 #include <functional> // for less
- 
- 
+Â 
+Â 
 #define FASTIO ios::sync_with_stdio(0); cin.tie(0);
 #define show(x) cout << #x << " = " << x << "\n"
 #define mem( a , b ) memset( a , b , sizeof a )
@@ -36,34 +36,34 @@
 using namespace std;
 using namespace __gnu_pbds;
 void ONLINE__JUDGE();
- 
+Â 
 typedef tree<ld, null_type, less<ld>, rb_tree_tag,
             tree_order_statistics_node_update>
     ordered_set;
- 
+Â 
 pii swapii( pii pr ){ return { pr.S , pr.F }; }
 int dx[] = {  0 ,  0 , -1 , +1 , -1 , +1 , -1 , +1 };
 int dy[] = { -1 , +1 ,  0 ,  0 , -1 , +1 , +1 , -1 };
- 
+Â 
 const ll MOD = 1e9 + 7;
 const ll MAX = 1e6 + 9;
- 
+Â 
 ld x , y , z;
- 
+Â 
 int main()
 {
     FASTIO ONLINE__JUDGE();
- 
+Â 
     cin >> x >> y >> z;
- 
+Â 
     ld inc = 1.0*z/100.0 * y;
     ld dec = 1.0*(100.0 - z)/100.0 * y;
- 
+Â 
     cout << fixed << setprecision( 12 ) << x + inc - dec;
     return 0;
 }
- 
- 
+Â 
+Â 
 void ONLINE__JUDGE()
 {
     #ifndef ONLINE_JUDGE
@@ -71,4 +71,4 @@ void ONLINE__JUDGE()
     //freopen( "OutPut.txt"   , "w" , stdout );
     #endif // ONLINE_JUDGE
 }
- 
+Â 
