@@ -2,6 +2,171 @@
 <body>
 <table><tr>
 <th>
+Dynamic Programming - Knapsack
+</th>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Knapsack/UVA%20%20437%20-%20The%20Tower%20of%20Babylon.txt"> UVA  437 - The Tower of Babylon</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Knapsack/UVA%20%20562%20-%20Dividing%20coins.txt"> UVA  562 - Dividing coins</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Knapsack/UVA%20%20990%20-%20Diving%20for%20Gold.txt"> UVA  990 - Diving for Gold</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Knapsack/UVA%20%201213%20-%20Sum%20of%20Different%20Primes.txt"> UVA  1213 - Sum of Different Primes</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Knapsack/UVA%20%2010036%20-%20Divisibility.txt"> UVA  10036 - Divisibility</a>
+</td>
+</tr>
+<tr>
+<th>
+Data Structures - STL stack
+</th>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Data%20Structures/STL%20stack/UVA%20%20514%20-%20Rails.txt"> UVA  514 - Rails</a>
+</td>
+</tr>
+<tr>
+<th>
+Graphs - Single-Source Shortest Paths (SSSP) -  Bellman Ford
+</th>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Graphs/Single-Source%20Shortest%20Paths%20(SSSP)/On%20Weighted%20Graph%20%5B%20Bellman%20Ford%20%5D/UVA%20%20558%20-%20Wormholes.txt"> UVA  558 - Wormholes</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Graphs/Single-Source%20Shortest%20Paths%20(SSSP)/On%20Weighted%20Graph%20%5B%20Bellman%20Ford%20%5D/UVA%20%2010449%20-%20Traffic%20.txt"> UVA  10449 - Traffic </a>
+</td>
+</tr>
+<tr>
+<th>
+Graphs - Minimum Spanning tree
+</th>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Graphs/Minimum%20Spanning%20tree/UVA%20%20534%20-%20Frogger.txt"> UVA  534 - Frogger</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Graphs/Minimum%20Spanning%20tree/UVA%20%2010034%20-%20Freckles.txt"> UVA  10034 - Freckles</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Graphs/Minimum%20Spanning%20tree/UVA%20%2010048%20-%20Audiophobia.txt"> UVA  10048 - Audiophobia</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Graphs/Minimum%20Spanning%20tree/UVA%20%2010099%20-%20The%20Tourist%20Guide.txt"> UVA  10099 - The Tourist Guide</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Graphs/Minimum%20Spanning%20tree/UVA%20%2010147%20-%20Highways.txt"> UVA  10147 - Highways</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Graphs/Minimum%20Spanning%20tree/UVA%20%2010369%20-%20Arctic%20Network.txt"> UVA  10369 - Arctic Network</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Graphs/Minimum%20Spanning%20tree/UVA%20%2010397%20-%20Connect%20the%20Campus.txt"> UVA  10397 - Connect the Campus</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Graphs/Minimum%20Spanning%20tree/UVA%20%2011631%20-%20Dark%20roads.txt"> UVA  11631 - Dark roads</a>
+</td>
+</tr>
+<tr>
+<th>
+Recursion
+</th>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Recursion/UVA%20%2010168%20-%20Summation%20of%20Four%20Primes.txt"> UVA  10168 - Summation of Four Primes</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Recursion/UVA%20%2010344%20-%2023%20out%20of%205%20.txt"> UVA  10344 - 23 out of 5 </a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Recursion/UVA%20193%20-%20Graph%20Coloring.txt"> UVA 193 - Graph Coloring</a>
+</td>
+</tr>
+<tr>
+<th>
+Dynamic Programming - Coin Change (CC)
+</th>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Coin%20Change%20(CC)/UVA%20%20147%20-%20Dollars.txt"> UVA  147 - Dollars</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Coin%20Change%20(CC)/UVA%20%20357%20-%20Let%20Me%20Count%20The%20Ways%20(%20bottom%20up%20).txt"> UVA  357 - Let Me Count The Ways ( bottom up )</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Coin%20Change%20(CC)/UVA%20%20357%20-%20Let%20Me%20Count%20The%20Ways.txt"> UVA  357 - Let Me Count The Ways</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Coin%20Change%20(CC)/UVA%20%2011137%20-%20Ingenuous%20Cubrency.txt"> UVA  11137 - Ingenuous Cubrency</a>
+</td>
+</tr>
+<tr>
+<th>
+Dynamic Programming - Bit Mask
+</th>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Bit%20Mask/CF%20%20D.%20Kefa%20and%20Dishes.txt"> CF  D. Kefa and Dishes</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Bit%20Mask/UVA%20%2010651%20-%20Pebble%20Solitaire.txt"> UVA  10651 - Pebble Solitaire</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Bit%20Mask/UVA%20%2010911%20Forming%20Quiz%20Teams.txt"> UVA  10911 Forming Quiz Teams</a>
+</td>
+</tr>
+<tr>
+<th>
 Combinatorics - Fibonacci Numbers
 </th>
 </tr>
@@ -108,76 +273,6 @@ Data Structures - Bit Manipulation
 <tr>
 <td>
 <a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Data%20Structures/Bit%20Manipulation/CF%20-%20E.%20Bitwise%20Formula.txt"> CF - E. Bitwise Formula</a>
-</td>
-</tr>
-<tr>
-<th>
-Data Structures - STL stack
-</th>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Data%20Structures/STL%20stack/UVA%20%20514%20-%20Rails.txt"> UVA  514 - Rails</a>
-</td>
-</tr>
-<tr>
-<th>
-Graphs - Single-Source Shortest Paths (SSSP) -  Bellman Ford
-</th>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Graphs/Single-Source%20Shortest%20Paths%20(SSSP)/On%20Weighted%20Graph%20%5B%20Bellman%20Ford%20%5D/UVA%20%20558%20-%20Wormholes.txt"> UVA  558 - Wormholes</a>
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Graphs/Single-Source%20Shortest%20Paths%20(SSSP)/On%20Weighted%20Graph%20%5B%20Bellman%20Ford%20%5D/UVA%20%2010449%20-%20Traffic%20.txt"> UVA  10449 - Traffic </a>
-</td>
-</tr>
-<tr>
-<th>
-Graphs - Minimum Spanning tree
-</th>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Graphs/Minimum%20Spanning%20tree/UVA%20%20534%20-%20Frogger.txt"> UVA  534 - Frogger</a>
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Graphs/Minimum%20Spanning%20tree/UVA%20%2010034%20-%20Freckles.txt"> UVA  10034 - Freckles</a>
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Graphs/Minimum%20Spanning%20tree/UVA%20%2010048%20-%20Audiophobia.txt"> UVA  10048 - Audiophobia</a>
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Graphs/Minimum%20Spanning%20tree/UVA%20%2010099%20-%20The%20Tourist%20Guide.txt"> UVA  10099 - The Tourist Guide</a>
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Graphs/Minimum%20Spanning%20tree/UVA%20%2010147%20-%20Highways.txt"> UVA  10147 - Highways</a>
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Graphs/Minimum%20Spanning%20tree/UVA%20%2010369%20-%20Arctic%20Network.txt"> UVA  10369 - Arctic Network</a>
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Graphs/Minimum%20Spanning%20tree/UVA%20%2010397%20-%20Connect%20the%20Campus.txt"> UVA  10397 - Connect the Campus</a>
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Graphs/Minimum%20Spanning%20tree/UVA%20%2011631%20-%20Dark%20roads.txt"> UVA  11631 - Dark roads</a>
 </td>
 </tr>
 <tr>
