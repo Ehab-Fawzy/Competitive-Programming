@@ -31,6 +31,26 @@ Dynamic Programming - Knapsack
 </td>
 </tr>
 <tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Knapsack/UVA%20%2010130%20-%20SuperSale.txt"> UVA  10130 - SuperSale</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Knapsack/UVA%20%2010616%20-%20Divisible%20Group%20Sums.txt"> UVA  10616 - Divisible Group Sums</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Knapsack/UVA%20%2010664%20-%20Luggage.txt"> UVA  10664 - Luggage</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Knapsack/UVA%20%2010819%20-%20Trouble%20of%2013-Dots.txt"> UVA  10819 - Trouble of 13-Dots</a>
+</td>
+</tr>
+<tr>
 <th>
 Data Structures - STL stack
 </th>
@@ -143,6 +163,96 @@ Dynamic Programming - Coin Change (CC)
 <tr>
 <td>
 <a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Coin%20Change%20(CC)/UVA%20%2011137%20-%20Ingenuous%20Cubrency.txt"> UVA  11137 - Ingenuous Cubrency</a>
+</td>
+</tr>
+<tr>
+<th>
+Dynamic Programming - Max 2D Range Sum
+</th>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Max%202D%20Range%20Sum/UVA%20%20108%20-%20Maximum%20Sum%20O(N%5E3).txt"> UVA  108 - Maximum Sum O(N^3)</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Max%202D%20Range%20Sum/UVA%20%20108%20-%20Maximum%20Sum.txt"> UVA  108 - Maximum Sum</a>
+</td>
+</tr>
+<tr>
+<th>
+Dynamic Programming - Non Classical DP
+</th>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Non%20Classical%20DP/Advance%20DP/UVA%20%201238%20-%20Free%20Parentheses.txt"> UVA  1238 - Free Parentheses</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Non%20Classical%20DP/The%20Easier%20Ones/CF%20%20D.%20Palindromes.txt"> CF  D. Palindromes</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Non%20Classical%20DP/The%20Easier%20Ones/CF%20%20H.%20Subsequences%20(hard%20version).txt"> CF  H. Subsequences (hard version)</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Non%20Classical%20DP/The%20Easier%20Ones/UVA%20%20348%20-%20Optimal%20Array%20Multiplication%20Sequence.txt"> UVA  348 - Optimal Array Multiplication Sequence</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Non%20Classical%20DP/The%20Easier%20Ones/UVA%20%201261%20-%20String%20Popping.txt"> UVA  1261 - String Popping</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Non%20Classical%20DP/The%20Easier%20Ones/UVA%20%2010003%20-%20Cutting%20Sticks.txt"> UVA  10003 - Cutting Sticks</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Non%20Classical%20DP/The%20Easier%20Ones/UVA%20%2010980%20-%20Lowest%20Price%20in%20Town.txt"> UVA  10980 - Lowest Price in Town</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Non%20Classical%20DP/The%20Easier%20Ones/UVA%20%2011407%20-%20Squares%20(bottom%20up).txt"> UVA  11407 - Squares (bottom up)</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Non%20Classical%20DP/The%20Easier%20Ones/UVA%20%2011407%20-%20Squares.txt"> UVA  11407 - Squares</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Non%20Classical%20DP/The%20Easier%20Ones/UVA%20%2011420%20-%20Chest%20of%20Drawers.txt"> UVA  11420 - Chest of Drawers</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Non%20Classical%20DP/The%20Easier%20Ones/UVA%20%2011703%20sqrt%20log%20sin.txt"> UVA  11703 sqrt log sin</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Problems%20Solutions/UVA%20%2010739%20-%20String%20to%20Palindrome.txt"> UVA  10739 - String to Palindrome</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Problems%20Solutions/UVA%20%2011450%20-%20Wedding%20shopping%20(%20Bottom%20Up%20).txt"> UVA  11450 - Wedding shopping ( Bottom Up )</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Problems%20Solutions/UVA%20%2011450%20-%20Wedding%20shopping%20(%20Top%20%20Down%20).txt"> UVA  11450 - Wedding shopping ( Top  Down )</a>
 </td>
 </tr>
 <tr>
@@ -398,6 +508,61 @@ Data Structures - Union-Find Disjoint Sets
 <tr>
 <td>
 <a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Data%20Structures/Union-Find%20Disjoint%20Sets/UVA%2011474%20-%20Dying%20Tree.txt"> UVA 11474 - Dying Tree</a>
+</td>
+</tr>
+<tr>
+<th>
+Dynamic Programming - Max 1D Range Sum
+</th>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/tree/master/Solving%20Paradigms/Dynamic%20Programming/Max%201D%20Range%20Sum"> UVA  10684 - The jackpot</a>
+</td>
+</tr>
+<tr>
+<th>
+Dynamic Programming - Longest Increasing Subsequence (LIS)
+</th>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Longest%20Increasing%20Subsequence%20(LIS)/CF%20-%20D.%20Mysterious%20Present.txt"> CF - D. Mysterious Present</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Longest%20Increasing%20Subsequence%20(LIS)/UVA%20%20231%20-%20Testing%20the%20CATCHER.txt"> UVA  231 - Testing the CATCHER</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Longest%20Increasing%20Subsequence%20(LIS)/UVA%20%20481%20-%20What%20Goes%20Up.txt"> UVA  481 - What Goes Up</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Longest%20Increasing%20Subsequence%20(LIS)/UVA%20%20497%20-%20Strategic%20Defense%20Initiative.txt"> UVA  497 - Strategic Defense Initiative</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Longest%20Increasing%20Subsequence%20(LIS)/UVA%20%2010100%20-%20Longest%20Match.txt"> UVA  10100 - Longest Match</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Longest%20Increasing%20Subsequence%20(LIS)/UVA%20%2010131%20-%20Is%20Bigger%20Smarter.txt"> UVA  10131 - Is Bigger Smarter</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Longest%20Increasing%20Subsequence%20(LIS)/UVA%20%2010192%20-%20Vacation.txt"> UVA  10192 - Vacation</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Longest%20Increasing%20Subsequence%20(LIS)/UVA%20%2010534%20-%20Wavio%20Sequence.txt"> UVA  10534 - Wavio Sequence</a>
 </td>
 </tr>
 </table>
