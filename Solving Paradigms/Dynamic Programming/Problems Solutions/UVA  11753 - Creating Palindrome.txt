@@ -1,0 +1,81 @@
+// UVA 11753 - Creating Palindrome
+// https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2853
+
+
+#include <bits/stdc++.h>
+
+#define F first
+#define S second
+#define pb push_back
+#define ll long long
+#define vi vector<ll>
+#define all(x) x.begin() , x.end()
+#define mod(x,m) ((x%m + m )%m)
+
+using namespace std;
+void OJ();
+const int MAX = 1e4 + 9;
+
+
+int q , n , k, mx; vector<int> vec;
+map< pair<int,pair<int,int>> , int> dp;
+
+int go( int l , int r , int cnt = 0 ){
+    if ( r <= l ){
+        mx = min(mx, cnt);
+        return mx;
+    }
+    if ( cnt > k || cnt > mx ){
+        return cnt;
+    }
+
+    auto it = dp.find({cnt , {l , r}});
+    if ( it != dp.end() ){
+        return it->S;
+    }
+
+    int ret = 1e9;
+    if ( vec[l] == vec[r] ){
+        ret = min(ret , go(l + 1 , r - 1 , cnt) );
+    }
+    else{
+        ret = min(ret , go(l + 1 , r , cnt + 1));
+        ret = min(ret , go(l , r - 1 , cnt + 1));
+    }
+
+    dp[{cnt , {l , r}}] = ret; return ret;
+}
+
+int main(){
+    ios::sync_with_stdio(0); cin.tie(0); cout.tie(0); //OJ();
+
+    cin >> q;
+    for ( int i = 1; i <= q; ++i ){
+        cin >> n >> k; vec.clear(); vec.resize(n);
+        for ( int& i : vec ) cin >> i;
+        mx = 1e9; dp.clear(); go(0 , n - 1);
+
+        cout << mx;
+
+        if ( mx == 0 ){
+            cout << "Case " << i << ": " << "Too easy";
+        }
+        else if ( mx > k ){
+            cout << "Case " << i << ": " << "Too difficult";
+        }
+        else{
+            cout << "Case " << i << ": " << mx;
+        }
+        cout << "\n";
+    }
+    return  0;
+}
+
+void OJ(){
+#ifndef ONLINE_JUDGE
+    freopen( "C:\\Users\\ehab\\Desktop\\Code Forces\\CF\\in.txt" , "r" , stdin  );
+    //freopen( "C:\\Users\\ehab\\Desktop\\Code Forces\\CF\\out.txt", "w" , stdout );
+#endif // ONLINE_JUDGE
+}
+ll binEXP( ll x , ll pw , ll MOD )
+{ ll res=1; while(pw>0){ pw%2 ? res *= x : 0; x *= x; x%=MOD; pw /= 2; res%= MOD; } return res%=MOD; }
