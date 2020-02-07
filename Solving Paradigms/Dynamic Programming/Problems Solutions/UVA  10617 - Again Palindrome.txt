@@ -1,0 +1,52 @@
+// 10617 - Again Palindrome
+// https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1558
+
+#include <bits/stdc++.h>
+
+#define F first
+#define S second
+#define pb push_back
+#define ll long long
+#define vi vector<ll>
+#define all(x) x.begin() , x.end()
+#define mod(x,m) ((x%m + m )%m)
+
+using namespace std;
+void OJ();
+const int MAX = 1e4 + 9;
+
+const int N = 62;
+string s; unsigned ll dp[N][N];
+unsigned ll go( int l , int r ){
+    if ( r < l ) return 0;
+
+    unsigned ll& ret = dp[l][r];
+    if ( ~ret )
+        return ret;
+
+    ret = 0;
+    if ( s[l] == s[r] )
+        ret += go(l + 1 , r - 1) + 1;
+    ret += go(l + 1 , r) + go(l , r - 1) - go(l + 1 , r - 1);
+    return ret;
+}
+int main(){
+    ios::sync_with_stdio(0); cin.tie(0); cout.tie(0); //OJ();
+
+    int q; cin >> q;
+    while ( q-- ){
+        cin >> s;
+        memset(dp , -1 , sizeof dp);
+        cout << go( 0 , s.length() - 1 ) << "\n";
+    }
+    return  0;
+}
+
+void OJ(){
+#ifndef ONLINE_JUDGE
+    freopen( "C:\\Users\\ehab\\Desktop\\Code Forces\\CF\\in.txt" , "r" , stdin  );
+    //freopen( "C:\\Users\\ehab\\Desktop\\Code Forces\\CF\\out.txt", "w" , stdout );
+#endif // ONLINE_JUDGE
+}
+ll binEXP( ll x , ll pw , ll MOD )
+{ ll res=1; while(pw>0){ pw%2 ? res *= x : 0; x *= x; x%=MOD; pw /= 2; res%= MOD; } return res%=MOD; }
