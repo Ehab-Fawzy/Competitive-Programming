@@ -262,7 +262,7 @@ Dynamic Programming - Non Classical DP
 </tr>
 <tr>
 <td>
-<a href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1558"> UVA 10617 - Again Palindrome</a>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Problems%20Solutions/UVA%20%2010617%20-%20Again%20Palindrome.txt"> UVA 10617 - Again Palindrome</a>
 </td>
 </tr>
 <tr>
