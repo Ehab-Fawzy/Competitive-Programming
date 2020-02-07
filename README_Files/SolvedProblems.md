@@ -256,6 +256,16 @@ Dynamic Programming - Non Classical DP
 </td>
 </tr>
 <tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Problems%20Solutions/UVA%20%2011753%20-%20Creating%20Palindrome.txt"> UVA 11753 - Creating Palindrome</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1558"> UVA 10617 - Again Palindrome</a>
+</td>
+</tr>
+<tr>
 <th>
 Dynamic Programming - Bit Mask
 </th>
