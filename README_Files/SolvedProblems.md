@@ -266,6 +266,11 @@ Dynamic Programming - Non Classical DP
 </td>
 </tr>
 <tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Solving%20Paradigms/Dynamic%20Programming/Problems%20Solutions/UVA%20%201362%20-%20Exploring%20Pyramids.txt"> UVA 1362 - Exploring Pyramids</a>
+</td>
+</tr>
+<tr>
 <th>
 Dynamic Programming - Bit Mask
 </th>
