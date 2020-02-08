@@ -1,0 +1,63 @@
+// UVA 1362 - Exploring Pyramids
+// https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=4108
+
+#include <bits/stdc++.h>
+
+#define F first
+#define S second
+#define pb push_back
+#define ll long long
+#define vi vector<ll>
+#define all(x) x.begin() , x.end()
+#define mod(x,m) ((x%m + m )%m)
+
+using namespace std;
+void OJ();
+const int MAX = 1e4 + 9;
+
+const int N = 302 , MOD = 1e9;
+
+string s;
+ll dp[N][N];
+
+ll f( int l , int r){
+    if ( r <= l ) return l == r;
+
+    ll& ret = dp[l][r];
+    if ( ~ret )
+        return ret;
+
+    ret = 0;
+    if ( s[l] == s[r] ){
+        ret += f(l + 1 , r - 1);
+        ret %= MOD;
+    }
+    for ( int mid = l + 1; mid < r; ++mid ){
+        if ( s[l] == s[mid] && s[mid] == s[r] ){
+            ret += f(l, mid) * f(mid + 1 , r - 1);
+            ret %= MOD;
+        }
+    }
+    return ret;
+}
+
+
+int main(){
+    ios::sync_with_stdio(0); cin.tie(0); cout.tie(0); //OJ();
+
+    while ( cin >> s && !s.empty() ){
+        memset(dp , -1 , sizeof dp);
+        cout << f( 0 , s.length() - 1 ) << "\n";
+        s = "";
+    }
+    return  0;
+}
+
+void OJ(){
+#ifndef ONLINE_JUDGE
+    freopen( "C:\\Users\\ehab\\Desktop\\Code Forces\\CF\\in.txt" , "r" , stdin  );
+    //freopen( "C:\\Users\\ehab\\Desktop\\Code Forces\\CF\\out.txt", "w" , stdout );
+#endif // ONLINE_JUDGE
+}
+ll binEXP( ll x , ll pw , ll MOD )
+{ ll res=1; while(pw>0){ pw%2 ? res *= x : 0; x *= x; x%=MOD; pw /= 2; res%= MOD; } return res%=MOD; }
