@@ -122,6 +122,41 @@ Graphs - Minimum Spanning tree
 </tr>
 <tr>
 <th>
+Computational Geometry
+</th>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Computational%20Geometry/Codeforces%20474C%20-%20Captain%20Marmot%202.cpp"> Codeforces 474C - Captain Marmot 2</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Computational%20Geometry/Codeforces%20474C%20-%20Captain%20Marmot%201.cpp"> Codeforces 474C - Captain Marmot 1</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Computational%20Geometry/UVA%2010242%20-%20Fourth%20Point%20!!.cpp"> UVA 10242 - Fourth Point !!</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Computational%20Geometry/UVA%20460%20-%20Overlapping%20Rectangles.cpp"> UVA 460 - Overlapping Rectangles</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Computational%20Geometry/UVA%20476%20-%20Points%20in%20Figures%20Rectangles.cpp"> UVA 476 - Points in Figures Rectangles</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Ehab-Fawzy/Competitive-Programming/blob/master/Computational%20Geometry/UVA%20478%20-%20Points%20in%20Figures%20Rectangles%2C%20Circles%2C%20Triangles.cpp"> UVA 478 - Points in Figures Rectangles, Circles, Triangles</a>
+</td>
+</tr>
+<tr>
+<th>
 Recursion
 </th>
 </tr>
