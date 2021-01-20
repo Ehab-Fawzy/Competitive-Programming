@@ -1,0 +1,119 @@
+// http://www.usaco.org/index.php?page=viewproblem2&cpid=842
+
+
+#include <bits/stdc++.h>
+using namespace std;
+#define F first
+#define S second
+#define pb push_back
+#define ll long long
+#define all(x) x.begin() , x.end()
+#define rep(i,s,e) for (int i = s; i < e; ++i)
+#define rev(i,s,e) for (int i = s; i > e; --i)
+
+const int N = 2e5 + 99 , k = 20;
+
+struct tree{
+    ll cost[N];
+    vector<pair<int,ll>> adj[N];
+    void addEdge( int u , int v , ll c = 1 ){
+        adj[u].pb({v, c}); adj[v].pb({u, c});
+    }
+
+    int st[N] , en[N] , deg[N] , sz[N] , id = -1 , up[N][k];
+    void euler(int u, int par , ll cnt = 0 , int _deg = 0){
+        cost[u] = cnt; st[u] = ++id; up[u][0] = par; deg[u] = _deg; sz[u] = 1;
+        rep(i,1,k) up[u][i] = up[ up[u][i - 1] ][i-1];
+        for ( auto &v : adj[u] ) if ( v.F != par ) euler(v.F , u , cnt + v.S , _deg + 1) , sz[u] += sz[v.F];
+        en[u] = id;
+    }
+    bool is_ancestor( int u , int v ){
+        return st[u] <= st[v] and en[u] >= en[v];
+    }
+    int lca(int u , int v){
+        if ( is_ancestor(u , v) ) return u;
+        if ( is_ancestor(v , u) ) return v;
+        rev(i,k-1,-1) if (!is_ancestor(up[u][i] , v)) u = up[u][i];
+        return up[u][0];
+    }
+    ll path( int u , int v ){
+        return cost[u] + cost[v] - (cost[lca(u , v)] << 1);
+    }
+};
+
+
+int ans[N]; tree tr;
+vector<pair<int,int>> st[N];
+vector<int> en[N];
+
+multiset<int> dfs( int u , int par ){
+    int large = -1;
+    multiset<int> ret;
+    for ( auto &v : tr.adj[u] ) {
+        if ( v.F != par ){
+            if ( tr.sz[v.F] >= tr.sz[u] / 2 ){
+                ret = dfs(v.F , u); large = v.F;
+            }
+        }
+    }
+    for ( auto &v : tr.adj[u] ) {
+        if ( v.F != par and v.F != large ){
+                multiset<int> ms;
+                ms = dfs(v.F , u);
+                for ( int i : ms ) ret.insert(i);
+        }
+    }
+
+    for ( auto i : st[u] ){
+        ret.insert(i.F); en[i.S].pb(i.F);
+    }
+    for ( int i : en[u] ){
+        auto it = ret.find(i);
+        if (it != ret.end()) ret.erase(it);
+    }
+
+    if ( ret.size() ){
+        ans[u] = min(ans[u] , *ret.begin());
+    }
+    return ret;
+}
+
+int main() {
+    ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+    freopen("disrupt.in" , "r" , stdin);
+    freopen("disrupt.out", "w" , stdout);
+#ifdef CLion
+    freopen("input.txt" , "r" , stdin);
+//    freopen("output.txt", "w" , stdout);
+#endif
+
+    int n , q;
+    cin >> n >> q;
+    rep(i,0,n+5) ans[i] = 2e9;
+
+    vector<pair<int,int>> edges(n - 1);
+    rep(i,0,n-1){
+        cin >> edges[i].F >> edges[i].S;
+        tr.addEdge(edges[i].F , edges[i].S);
+    }
+
+    tr.euler(1,1);
+    while ( q-- ){
+        int u , v, c;
+        cin >> u >> v >> c;
+        int lca = tr.lca(u , v);
+        st[u].pb({c , lca});
+        st[v].pb({c , lca});
+    }
+
+    auto tmp = dfs(1,1);
+    rep(i,0,n+9){
+        if ( ans[i] == 2e9 ) ans[i] = -1;
+    }
+
+    for ( auto &i : edges ){
+        if ( tr.deg[i.F] > tr.deg[i.S] ) cout << ans[i.F] << "\n";
+        else cout << ans[i.S] << "\n";
+    }
+    return 0;
+}

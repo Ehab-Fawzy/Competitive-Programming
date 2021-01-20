@@ -1,0 +1,84 @@
+// http://www.usaco.org/index.php?page=viewproblem2&cpid=576
+
+#include <bits/stdc++.h>
+using namespace std;
+#define F first
+#define S second
+#define pb push_back
+#define ll long long
+#define all(x) x.begin() , x.end()
+#define rep(i,s,e) for (int i = s; i < e; ++i)
+#define rev(i,s,e) for (int i = s; i > e; --i)
+
+const int N = 2e5 + 99 , k = 20;
+
+struct tree{
+    ll cost[N];
+    vector<pair<int,ll>> adj[N];
+    void addEdge( int u , int v , ll c = 1 ){
+        adj[u].pb({v, c}); adj[v].pb({u, c});
+    }
+
+    int st[N] , en[N] , id = -1 , up[N][k];
+    void euler(int u, int par , ll cnt = 0){
+        cost[u] = cnt; st[u] = ++id; up[u][0] = par;
+        rep(i,1,k) up[u][i] = up[ up[u][i - 1] ][i-1];
+        for ( auto &v : adj[u] ) if ( v.F != par ) euler(v.F , u , cnt + v.S);
+        en[u] = id;
+    }
+    bool is_ancestor( int u , int v ){
+        return st[u] <= st[v] and en[u] >= en[v];
+    }
+    int lca(int u , int v){
+        if ( is_ancestor(u , v) ) return u;
+        if ( is_ancestor(v , u) ) return v;
+        rev(i,k-1,-1) if (!is_ancestor(up[u][i] , v)) u = up[u][i];
+        return up[u][0];
+    }
+    ll path( int u , int v ){
+        return cost[u] + cost[v] - (cost[lca(u , v)] << 1);
+    }
+};
+
+
+int cnt[N]; tree tr;
+int dfs( int u , int par , int &mx ){
+    int ret = cnt[u];
+    for ( auto v : tr.adj[u] ){
+        if ( v.F != par ) ret += dfs(v.F , u , mx);
+    }
+    mx = max(mx, ret);
+    return ret;
+}
+
+
+int main() {
+    ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+    freopen("maxflow.in" , "r" , stdin);
+    freopen("maxflow.out", "w" , stdout);
+#ifdef CLion
+    freopen("input.txt" , "r" , stdin);
+//    freopen("output.txt", "w" , stdout);
+#endif
+
+    int n , q; cin >> n >> q;
+    rep(i,1,n){
+        int u, v;
+        cin >> u >> v;
+        tr.addEdge(u , v);
+    }
+    tr.euler(1,1);
+
+    while ( q-- ){
+        int u, v; cin >> u >> v;
+        int lca = tr.lca(u , v);
+        cnt[u]++; cnt[v]++; cnt[lca]--;
+        if ( lca > 1 ){
+            cnt[tr.up[lca][0]]--;
+        }
+    }
+    int ans = 0;
+    dfs(1,0,ans);
+    cout << ans ;
+    return 0;
+}

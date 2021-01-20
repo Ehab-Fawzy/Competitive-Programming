@@ -1,0 +1,19 @@
+struct DSU{
+    int p[N] , r[N];
+    void init(int n){
+        rep(i,0,n) p[i] = i , r[i] = 0;
+    }
+    int root( int u ){
+        if ( u == p[u] ) return u;
+        return p[u] = root(p[u]);
+    }
+    bool merge( int u , int v ){
+        int x = root(u) , y = root(v);
+        if ( x != y ){
+            if ( r[x] > r[y] ) swap(x, y);
+            p[y] = x; r[x] == r[y] ? r[x]++ : 0;
+            return true;
+        }
+        return false;
+    }
+};

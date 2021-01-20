@@ -1,0 +1,166 @@
+template <class T>
+class segmentTree{
+private:
+    // Dynamic Section
+    void build_set(int idx , int l){
+        segment[idx] = arr[l];
+    }
+    void point_change_set(int idx , T val){
+        segment[idx] = val;
+    }
+    T combine(T lf , T ri){
+        return max(lf, ri);
+    }
+    T dummy(){
+        return -2e9;
+    }
+    void push_down( int idx , int l , int r , int lf , int ri ){
+        if ( lazy[idx] ){
+            segment[idx] += lazy[idx] ;
+            if ( l != r ){
+                lazy[lf] += lazy[idx];
+                lazy[ri] += lazy[idx];
+            }
+            lazy[idx] = 0;
+        }
+    }
+    void range_update_set( int idx , int l , int r , int lf , int ri , T val ){
+        segment[idx] += val ;
+        if ( l != r ) lazy[lf] += val , lazy[ri] += val;
+    }
+
+    // static section
+    void build(int idx , int l , int r){
+        int lf = (idx << 1) , mid = (l + r) >> 1 , ri = lf + 1;
+        if ( l == r ) build_set(idx , l);
+        else{
+            build(lf, l, mid);
+            build(ri , mid + 1 , r);
+            segment[idx] = combine(segment[lf] , segment[ri]);
+        }
+    }
+    void point_update( int pos , T val , int idx , int l , int r ){
+        int lf = (idx << 1) , mid = (l + r) >> 1 , ri = lf + 1;
+        push_down(idx , l , r , lf , ri);
+        if ( l == r ) point_change_set(idx , val);
+        else{
+            if ( pos <= mid ) point_update(pos , val , lf , l , mid);
+            else point_update(pos , val , ri , mid + 1 , r);
+            segment[idx] = combine(segment[lf] , segment[ri]);
+        }
+    }
+    void range_update( int s , int e , T val , int idx , int l , int r ){
+        int lf = (idx << 1) , mid = (l + r) >> 1 , ri = lf + 1;
+        push_down(idx , l , r , lf , ri);
+
+        if      ( s  > r || e  < l ) return ;
+        else if ( l >= s && r <= e ) range_update_set(idx , l , r , lf , ri , val);
+        else{
+            range_update(s , e , val , lf , l , mid);
+            range_update(s , e , val , ri , mid + 1 , r);
+            segment[idx] = combine(segment[lf] , segment[ri]);
+        }
+    }
+    T ask(int s , int e , int idx , int l , int r){
+        int lf = (idx << 1) , mid = (l + r) >> 1 , ri = lf + 1;
+        push_down(idx , l , r , lf , ri);
+        if      ( s >  r || e <  l ) return dummy();
+        else if ( l >= s && r <= e ) return segment[idx];
+        else{
+            return combine( ask(s,e,lf,l,mid) , ask(s,e,ri,mid+1,r));
+        }
+    }
+public:
+    vector<T> segment , lazy; int sz;
+    void init(int n){
+        sz = n + 2;
+        segment.resize(4 * sz);
+        lazy.resize(4 * sz);
+    }
+    void build(){ build(1 , 0 , sz - 1); }
+    void point_update(int pos , T val){ point_update(pos , val , 1 , 0 , sz - 1); }
+    void range_update(int s , int e , T val){ range_update(s , e , val , 1 , 0 , sz - 1); }
+    T ask(int s , int e){ return ask(s,e,1,0,sz-1); }
+};
+
+
+struct edge{
+    int to , cost;
+};
+class HLD{
+#define re resize
+    int Size;
+    segmentTree<int> seg;
+    vector<vector<edge>> adj;
+
+    vector<int> dpth , par , sz;
+    void dfs( int u , int p , int d = 0 ){
+        dpth[u] = d; par[u] = p; sz[u] = 1;
+        for ( auto &v : adj[u] ){
+            if ( v.to != p ) dfs(v.to, u, d + 1) , sz[u] += sz[v.to];
+        }
+    }
+
+    vector<int> chst , chend , nodeToIndex , chead, in, out; int id , idx;
+    void hld(int u , int cid){
+        in[u] = idx++;
+        if ( chst[u] == -1 ) chst[u] = id;
+        // Write in Segment Tree here
+        // arr[id] = ?
+
+        nodeToIndex[u] = id++; chead[u] = cid;
+        for ( auto &v : adj[u] ){
+            if ( v.to != par[u] and 2 * sz[v.to] >  sz[u]){
+                hld(v.to , cid);
+            }
+        }
+        if ( chend[cid] == -1 ) chend[cid] = id - 1;
+        for ( auto &v : adj[u] ){
+            if ( v.to != par[u] and 2 * sz[v.to] <= sz[u] ){
+                hld(v.to , v.to);
+            }
+        }
+        out[u] = idx - 1;
+    }
+public:
+
+    void init(int n){
+        Size = n + 2; id = idx = 0;
+        adj.resize(Size); seg.init(Size);
+        dpth.re(Size); par.re(Size); sz.re(Size); in.re(Size); out.re(Size);
+        chst.re(Size,-1); chend.re(Size,-1); nodeToIndex.re(Size); chead.re(Size);
+    }
+    void addEdge(int from , edge e){
+        adj[from].pb(e);
+    }
+    void calcSz( int root , int par ){
+        dfs(root, par);
+    }
+    void build(int root , int par){
+        hld(root, par);
+        seg.build();
+    }
+
+    int query( int u , int v ){
+        int ans = -2e9;
+        while ( chead[u] != chead[v] ){
+            if ( dpth[chead[u]] < dpth[chead[v]] ) swap(u, v);
+            // query segment tree here RANGE[chst[chead[u]] : nodeToIndex[u]]
+            ans = max(ans, seg.ask(chst[chead[u]] , nodeToIndex[u]));
+            u = par[chead[u]];
+        }
+        if ( dpth[u] > dpth[v] ) swap(u, v);
+        // query segment tree here RANGE[nodeToIndex[u] + (exclude_LCA ? 1 : 0) : nodeToIndex[v]]
+        ans = max(ans, seg.ask(nodeToIndex[u] , nodeToIndex[v]));
+        return ans;
+    }
+    void node_update( int u , int val ){
+        seg.point_update(nodeToIndex[u] , val);
+    }
+    void subtree_update(int u , int val){
+        seg.range_update(in[u] , out[u] , val);
+    }
+    int depth(int u){
+        return dpth[u];
+    }
+};

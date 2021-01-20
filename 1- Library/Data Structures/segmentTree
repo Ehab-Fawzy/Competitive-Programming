@@ -1,0 +1,53 @@
+template <class T>
+struct segmentTree{
+    vector<T> segment; int sz;
+    void init(int n){
+        sz = n; segment.resize(4 * sz);
+    }
+
+    void build_set(int idx , int l){
+        segment[idx] = arr[l];
+    }
+    void change_set(int idx , T val){
+        segment[idx] = val;
+    }
+    T combine(T lf , T ri){
+        return lf ^ ri;
+    }
+    T dummy(){
+        return 0;
+    }
+
+
+    void build(int idx , int l , int r){
+        int lf = (idx << 1) , mid = (l + r) >> 1 , ri = lf + 1;
+        if ( l == r ) build_set(idx , l);
+        else{
+            build(lf, l, mid);
+            build(ri , mid + 1 , r);
+            segment[idx] = combine(segment[lf] , segment[ri]);
+        }
+    }
+    void build(){ build(1 , 0 , sz - 1); }
+
+    void update( int pos , T val , int idx , int l , int r ){
+        int lf = (idx << 1) , mid = (l + r) >> 1 , ri = lf + 1;
+        if ( l == r ) change_set(idx , val);
+        else{
+            if ( pos <= mid ) update(pos , val , lf , l , mid);
+            else update(pos , val , ri , mid + 1 , r);
+            segment[idx] = combine(segment[lf] , segment[ri]);
+        }
+    }
+    void update(int pos , T val){ update(pos , val , 1 , 0 , sz - 1); }
+
+    T ask(int s , int e , int idx , int l , int r){
+        int lf = (idx << 1) , mid = (l + r) >> 1 , ri = lf + 1;
+        if      ( s >  r || e <  l ) return dummy();
+        else if ( l >= s && r <= e ) return segment[idx];
+        else{
+            return combine( ask(s,e,lf,l,mid) , ask(s,e,ri,mid+1,r));
+        }
+    }
+    T ask(int s , int e){ return ask(s,e,1,0,sz-1); }
+};
